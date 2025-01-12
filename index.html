@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Bán Code</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .product {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .product-item {
+            flex: 1 1 calc(33.333% - 20px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: #fff;
+        }
+        .product-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-item h3 {
+            padding: 10px;
+            font-size: 18px;
+        }
+        .product-item p {
+            padding: 0 10px;
+            font-size: 14px;
+            color: #555;
+        }
+        .product-item .price {
+            padding: 10px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .product-item button {
+            display: block;
+            width: 90%;
+            margin: 10px auto;
+            padding: 10px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .product-item button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>baosellcode</h1>
+        <h3>cung cấp dự án mẫu, tool</h3>
+    </header>
+
+    <nav>
+        <a href="#">Trang chủ</a>
+        <a href="#products">Sản phẩm</a>
+        <a href="#about">Giới thiệu</a>
+        <a href="lienhe/index.html">Liên hệ</a>
+    </nav>
+
+    <div class="container">
+        <section id="products">
+            <h2>Sản phẩm nổi bật</h2>
+            <div class="product">
+                <div class="product-item">
+                    <img src="https://via.placeholder.com/300" alt="Product 1">
+                    <h3>AI python</h3>
+                    <h4 style="color: #4CAF50;">mã 01</h4>
+                    <p>Nghe và trả lời câu hỏi bằng tiếng Việt. Có thể trả lời dựa trên wikipedia!</p>
+                    <p class="price">Giá: 0.000 VND</p>
+                    <button><a href="https://drive.google.com/drive/folders/1BwLboXkRqtjumch-FoWV3XOXabYqwb3Z?usp=sharing">Tải xuống</a></button>
+
+                </div>
+                <div class="product-item">
+                    <img src="https://via.placeholder.com/300" alt="Product 2">
+                    <h3>Code Ứng Dụng Quản Lý</h3>
+                    <h4 style="color: #4CAF50;">mã 02</h4>
+                    <p>Làm bằng Android studio java. Mẫu bài tập lớn</p>
+                    <p class="price">Giá: 300.000 VND</p>
+                    <button onclick="window.location.href='muahang/index.html';">Mua Hàng</button>
+
+                </div>
+                <div class="product-item">
+                    <img src="https://via.placeholder.com/300" alt="Product 3">
+                    <h3>Code Blog Cá Nhân</h3>
+                    <h4 style="color: #4CAF50;">mã 03</h4>
+                    <p>Làm bằng html css js.</p>
+                    <p class="price">Giá: 20.000 VND</p>
+                    <button onclick="window.location.href='muahang/index.html';">Mua Hàng</button>
+                    
+
+                </div>
+                <p>trang web đang trong quá trình hoàn thiện và sẽ cập nhật thêm!</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2025 baosellcode. All rights reserved.</p>
+    </footer>
+
+
+</body>
+</html>
