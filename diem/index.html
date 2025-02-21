@@ -57,7 +57,7 @@
         function addPoints() {
             let student = document.getElementById("student").value;
             let times = parseInt(document.getElementById("times").value) || 0;
-            scores[student] += times * 3;
+            scores[student] += times * 3 + 6; // Cộng điểm phát biểu và thêm 6 điểm
             localStorage.setItem("studentScores", JSON.stringify(scores));
             updateScoreboard();
         }
