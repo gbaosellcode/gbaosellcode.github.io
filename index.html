@@ -3,149 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Bán Code</title>
+    <title>Phân công trực nhật lớp</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #333;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 14px 20px;
-        }
-        nav a:hover {
-            background-color: #575757;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .product {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .product-item {
-            flex: 1 1 calc(33.333% - 20px);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            overflow: hidden;
-            background-color: #fff;
-        }
-        .product-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .product-item h3 {
-            padding: 10px;
-            font-size: 18px;
-        }
-        .product-item p {
-            padding: 0 10px;
-            font-size: 14px;
-            color: #555;
-        }
-        .product-item .price {
-            padding: 10px;
-            font-weight: bold;
-            color: #4CAF50;
-        }
-        .product-item button {
-            display: block;
-            width: 90%;
-            margin: 10px auto;
-            padding: 10px;
-            border: none;
-            background-color: #4CAF50;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .product-item button:hover {
-            background-color: #45a049;
-        }
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #333;
-            color: white;
-            margin-top: 20px;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        h2 { color: #333; }
+        ul { list-style-type: none; padding: 0; }
+        li { padding: 10px; margin: 5px; background: #f4f4f4; border-radius: 5px; }
+        button { padding: 10px 20px; margin-top: 20px; cursor: pointer; }
+        button:disabled { background: gray; cursor: not-allowed; }
+        p { color: red; font-weight: bold; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>baosellcode</h1>
-        <h3>cung cấp dự án mẫu, tool</h3>
-    </header>
+    <h2>Danh sách trực nhật hôm nay</h2>
+    <ul id="duty-list"></ul>
+    <button id="refresh-button" onclick="assignDuties()">Làm mới danh sách</button>
+    <p id="next-refresh"></p>
 
-    <nav>
-        <a href="#">Trang chủ</a>
-        <a href="#products">Sản phẩm</a>
-        <a href="#about">Giới thiệu</a>
-        <a href="lienhe/index.html">Liên hệ</a>
-    </nav>
+    <script>
+        const members = [
+            "Huỳnh Gia Bảo", "Văn Tấn Bảo", "Nguyễn Tấn Phát", "Võ Kim Ngân", "Trần Thị Mẩn Nhi", 
+            "Mỹ Ngọc", "Ngọc Hân", "Thanh Hiền", "Quốc Minh"
+        ];
+        const tasks = ["Lau bảng", "Quét lớp", "Tưới cây"];
+        const periods = ["tiết 1", "tiết 2", "tiết 3", "tiết 4", "tiết 5"];
+        
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        function getNextTuesday() {
+            let now = new Date();
+            let nextTuesday = new Date(now);
+            nextTuesday.setDate(now.getDate() + ((2 - now.getDay() + 7) % 7));
+            nextTuesday.setHours(0, 0, 0, 0);
+            return nextTuesday;
+        }
+        
+        function assignDuties() {
+            let now = new Date();
+            let lastTuesday = getNextTuesday();
+            let storedDate = localStorage.getItem("lastRefreshDate");
+            let storedTimestamp = storedDate ? new Date(storedDate).getTime() : 0;
 
-    <div class="container">
-        <section id="products">
-            <h2>Sản phẩm nổi bật</h2>
-            <div class="product">
-                <div class="product-item">
-                    <img src="https://via.placeholder.com/300" alt="Product 1">
-                    <h3>AI python</h3>
-                    <h4 style="color: #4CAF50;">mã 01</h4>
-                    <p>Nghe và trả lời câu hỏi bằng tiếng Việt. Có thể trả lời dựa trên wikipedia!</p>
-                    <p class="price">Giá: 0.000 VND</p>
-                    <button><a href="https://drive.google.com/drive/folders/1BwLboXkRqtjumch-FoWV3XOXabYqwb3Z?usp=sharing">Tải xuống</a></button>
-
-                </div>
-                <div class="product-item">
-                    <img src="https://via.placeholder.com/300" alt="Product 2">
-                    <h3>Code Ứng Dụng Quản Lý</h3>
-                    <h4 style="color: #4CAF50;">mã 02</h4>
-                    <p>Làm bằng Android studio java. Mẫu bài tập lớn</p>
-                    <p class="price">Giá: 300.000 VND</p>
-                    <button onclick="window.location.href='muahang/index.html';">Mua Hàng</button>
-
-                </div>
-                <div class="product-item">
-                    <img src="https://via.placeholder.com/300" alt="Product 3">
-                    <h3>Code Blog Cá Nhân</h3>
-                    <h4 style="color: #4CAF50;">mã 03</h4>
-                    <p>Làm bằng html css js.</p>
-                    <p class="price">Giá: 20.000 VND</p>
-                    <button onclick="window.location.href='muahang/index.html';">Mua Hàng</button>
-                    
-
-                </div>
-                <p>trang web đang trong quá trình hoàn thiện và sẽ cập nhật thêm!</p>
-            </div>
-        </section>
-    </div>
-
-    <footer>
-        <p>© 2025 baosellcode. All rights reserved.</p>
-    </footer>
-
-
+            if (now.getTime() < lastTuesday.getTime() && storedTimestamp >= lastTuesday.getTime()) {
+                document.getElementById("refresh-button").disabled = true;
+                document.getElementById("next-refresh").textContent = `Bạn có thể làm mới vào: ${lastTuesday.toLocaleString()}`;
+                return;
+            }
+            
+            shuffle(members);
+            let dutyList = document.getElementById("duty-list");
+            dutyList.innerHTML = "";
+            
+            let usedForBoardCleaning = new Set();
+            let periodIndex = 0;
+            
+            for (let i = 0; i < members.length; i++) {
+                let task;
+                if (!usedForBoardCleaning.has(members[i]) && periodIndex < periods.length) {
+                    task = `Lau bảng - ${periods[periodIndex]}`;
+                    usedForBoardCleaning.add(members[i]);
+                    periodIndex++;
+                } else {
+                    task = tasks[(i % (tasks.length - 1)) + 1];
+                }
+                
+                let listItem = document.createElement("li");
+                listItem.textContent = `${members[i]} - ${task}`;
+                dutyList.appendChild(listItem);
+            }
+            
+            localStorage.setItem("lastRefreshDate", now.toISOString());
+            document.getElementById("refresh-button").disabled = true;
+            document.getElementById("next-refresh").textContent = `Bạn có thể làm mới vào: ${getNextTuesday().toLocaleString()}`;
+        }
+        
+        assignDuties();
+    </script>
 </body>
 </html>
