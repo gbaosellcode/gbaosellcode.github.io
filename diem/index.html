@@ -33,6 +33,8 @@
     </table>
     
     <button onclick="resetScores()">Reset điểm</button>
+    <button onclick="exportScores()">Xuất danh sách</button>
+    <input type="file" id="fileInput" onchange="importScores(event)">
     
     <script>
         const students = [
@@ -83,6 +85,34 @@
             } else {
                 alert("Mật khẩu không đúng!");
             }
+        }
+        
+        function exportScores() {
+            let data = JSON.stringify(scores, null, 2);
+            let blob = new Blob([data], { type: "text/plain" });
+            let a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "scores.txt";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+        
+        function importScores(event) {
+            let file = event.target.files[0];
+            if (!file) return;
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    scores = JSON.parse(e.target.result);
+                    localStorage.setItem("studentScores", JSON.stringify(scores));
+                    updateScoreboard();
+                    alert("Nhập dữ liệu thành công!");
+                } catch (error) {
+                    alert("Lỗi khi nhập dữ liệu!");
+                }
+            };
+            reader.readAsText(file);
         }
         
         initialize();
