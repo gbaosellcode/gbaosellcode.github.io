@@ -12,18 +12,19 @@
         button { padding: 10px 20px; margin-top: 20px; cursor: pointer; }
         button:disabled { background: gray; cursor: not-allowed; }
         p { color: red; font-weight: bold; }
+        .link-button { display: inline-block; padding: 10px 20px; margin-top: 20px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; }
     </style>
 </head>
 <body>
-    <h2>Danh sách trực nhật hôm nay</h2>
+    <h2>DANH SÁCH TRỰC NHẬT TỔ 2</h2>
     <ul id="duty-list"></ul>
     <button id="refresh-button" onclick="assignDuties()">Làm mới danh sách</button>
     <p id="next-refresh"></p>
-    <button onclick="window.location.href='https://gbaosellcode.github.io/diem/index.html' ">Điểm cộng</button>
+    <a href="https://gbaosellcode.github.io/diem.index.html" class="link-button">Điểm cộng</a>
 
     <script>
         const members = [
-            "Gia Bảo", "Tấn Bảo", "Tấn Phát", "Kim Ngân", "Mẩn Nhi", 
+            "Huỳnh Gia Bảo", "Văn Tấn Bảo", "Nguyễn Tấn Phát", "Võ Kim Ngân", "Trần Thị Mẩn Nhi", 
             "Mỹ Ngọc", "Ngọc Hân", "Thanh Hiền", "Quốc Minh"
         ];
         const tasks = ["Lau bảng", "Quét lớp", "Tưới cây"];
