@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ghi nhận phát biểu</title>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
         h2 { color: #333; }
@@ -33,16 +35,28 @@
     </table>
     
     <button onclick="resetScores()">Reset điểm</button>
-    <button onclick="exportScores()">Xuất danh sách</button>
-    <input type="file" id="fileInput" onchange="importScores(event)">
     
     <script>
+        // Cấu hình Firebase (Thay bằng thông tin dự án của bạn)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBkwtE5fgpqGfVKZz3axS4cOp_fmypA0Gs",
+            authDomain: "gbao-fb83c.firebaseapp.com",
+            databaseURL: "YOUR_DATABASE_URL",
+            projectId: "gbao-fb83c",
+            storageBucket: "gbao-fb83c.firebasestorage.app",
+            messagingSenderId: "839152269169",
+            appId: "1:839152269169:web:1221bd79ff5eed103ba8d0"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        
         const students = [
             "Gia Bảo", "Quốc Minh", "Mẩn Nhi", "Mỹ Ngọc", "Thanh Hiền", 
             "Tấn Bảo", "Ngọc Hân", "Tấn Phát", "Kim Ngân"
         ];
         
-        let scores = JSON.parse(localStorage.getItem("studentScores")) || {};
+        let scores = {};
         
         function initialize() {
             const studentSelect = document.getElementById("student");
@@ -51,16 +65,25 @@
                 option.value = name;
                 option.textContent = name;
                 studentSelect.appendChild(option);
-                if (!(name in scores)) scores[name] = 0;
             });
-            updateScoreboard();
+            fetchScores();
+        }
+        
+        function fetchScores() {
+            database.ref("scores").once("value", snapshot => {
+                scores = snapshot.val() || {};
+                students.forEach(name => {
+                    if (!(name in scores)) scores[name] = 0;
+                });
+                updateScoreboard();
+            });
         }
         
         function addPoints() {
             let student = document.getElementById("student").value;
             let times = parseInt(document.getElementById("times").value) || 0;
             scores[student] += times * 3 + 6; // Cộng điểm phát biểu và thêm 6 điểm
-            localStorage.setItem("studentScores", JSON.stringify(scores));
+            database.ref("scores").set(scores);
             updateScoreboard();
         }
         
@@ -79,40 +102,12 @@
             if (password === "09092009") {
                 scores = {};
                 students.forEach(name => scores[name] = 0);
-                localStorage.setItem("studentScores", JSON.stringify(scores));
+                database.ref("scores").set(scores);
                 updateScoreboard();
                 alert("Đã reset điểm thành công!");
             } else {
                 alert("Mật khẩu không đúng!");
             }
-        }
-        
-        function exportScores() {
-            let data = JSON.stringify(scores, null, 2);
-            let blob = new Blob([data], { type: "text/plain" });
-            let a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = "scores.txt";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
-        
-        function importScores(event) {
-            let file = event.target.files[0];
-            if (!file) return;
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    scores = JSON.parse(e.target.result);
-                    localStorage.setItem("studentScores", JSON.stringify(scores));
-                    updateScoreboard();
-                    alert("Nhập dữ liệu thành công!");
-                } catch (error) {
-                    alert("Lỗi khi nhập dữ liệu!");
-                }
-            };
-            reader.readAsText(file);
         }
         
         initialize();
