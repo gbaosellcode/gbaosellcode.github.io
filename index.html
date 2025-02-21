@@ -19,10 +19,11 @@
     <ul id="duty-list"></ul>
     <button id="refresh-button" onclick="assignDuties()">Làm mới danh sách</button>
     <p id="next-refresh"></p>
+    <button onclick="window.location.href='https://gbaosellcode/diem/index.html' ">Điểm cộng</button>
 
     <script>
         const members = [
-            "Gia Bảo", "Tấn Bảo", "Tấn Phát", "Kim Ngân", "Mẩn Nhi", 
+            "Huỳnh Gia Bảo", "Văn Tấn Bảo", "Nguyễn Tấn Phát", "Võ Kim Ngân", "Trần Thị Mẩn Nhi", 
             "Mỹ Ngọc", "Ngọc Hân", "Thanh Hiền", "Quốc Minh"
         ];
         const tasks = ["Lau bảng", "Quét lớp", "Tưới cây"];
@@ -43,14 +44,16 @@
             return nextTuesday;
         }
         
-        function assignDuties() {
+        function assignDuties(force = false) {
             let now = new Date();
             let lastTuesday = getNextTuesday();
             let storedDate = localStorage.getItem("lastRefreshDate");
+            let storedDuties = localStorage.getItem("storedDuties");
             let storedTimestamp = storedDate ? new Date(storedDate).getTime() : 0;
-
-            if (now.getTime() < lastTuesday.getTime() && storedTimestamp >= lastTuesday.getTime()) {
-                document.getElementById("refresh-button").disabled = true;
+            
+            if (!force && storedDuties) {
+                document.getElementById("duty-list").innerHTML = storedDuties;
+                document.getElementById("refresh-button").disabled = now.getTime() < lastTuesday.getTime();
                 document.getElementById("next-refresh").textContent = `Bạn có thể làm mới vào: ${lastTuesday.toLocaleString()}`;
                 return;
             }
@@ -61,6 +64,7 @@
             
             let usedForBoardCleaning = new Set();
             let periodIndex = 0;
+            let sweepers = 0;
             
             for (let i = 0; i < members.length; i++) {
                 let task;
@@ -68,8 +72,11 @@
                     task = `Lau bảng - ${periods[periodIndex]}`;
                     usedForBoardCleaning.add(members[i]);
                     periodIndex++;
+                } else if (sweepers < 3) {
+                    task = "Quét lớp";
+                    sweepers++;
                 } else {
-                    task = tasks[(i % (tasks.length - 1)) + 1];
+                    task = "Tưới cây";
                 }
                 
                 let listItem = document.createElement("li");
@@ -78,6 +85,7 @@
             }
             
             localStorage.setItem("lastRefreshDate", now.toISOString());
+            localStorage.setItem("storedDuties", dutyList.innerHTML);
             document.getElementById("refresh-button").disabled = true;
             document.getElementById("next-refresh").textContent = `Bạn có thể làm mới vào: ${getNextTuesday().toLocaleString()}`;
         }
