@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Email</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 300px;
+            padding: 20px;
+            background: white;
+            border: 2px solid black;
+            text-align: center;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid black;
+        }
+        input {
+            text-align: center;
+        }
+        #randomNumber {
+            background: #ddd;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px;
+        }
+        button {
+            background: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: black;
+            color: white;
+        }
+    </style>
+</head>
+<body onload="generateRandomNumber()">
+    <div class="container">
+        <h3>Nhập thông tin</h3>
+        <input type="text" id="name" placeholder="TÊN - nhập đúng với tên trên tài khoản ngân hàng">
+        <input type="email" id="email" placeholder="EMAIL">
+        <div id="randomNumber"></div>
+        <button onclick="generateRandomNumber()">Tạo mã mới</button>
+        <button onclick="sendEmail()">Gửi</button>
+    </div>
+
+    <script>
+        function generateRandomNumber() {
+            let randomNumber = Math.floor(100000 + Math.random() * 900000);
+            document.getElementById("randomNumber").innerText = "" + randomNumber;
+        }
+
+        function sendEmail() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            
+            let randomNumber = document.getElementById("randomNumber").innerText;
+            let currentDate = new Date().toLocaleString(); // Lấy thời gian hiện tại
+
+            if (!name || !email) {
+                alert("Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
+            let subject = "Thông tin đăng ký mới";
+            let paymentLink = "https://example.com/thanh-toan";
+            let body = `Họ tên: ${name}%0AEmail: ${email}%0AMã số: ${randomNumber}%0AThời gian gửi: ${currentDate}%0A%0AĐặt mua ứng dụng mã hóa văn bản!%0A%0ABấm vào link để tiến hành thanh toán:%0A${paymentLink}`;
+
+let mailtoLink = `mailto:baoh78516@gmail.com?subject=${subject}&body=${body}`;
+window.location.href = mailtoLink;
+        }
+    </script>
+</body>
+</html>
