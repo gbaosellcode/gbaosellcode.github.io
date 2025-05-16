@@ -4,18 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dự đoán điểm thi 🎉</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
     }
 
     body {
-      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-family: 'Quicksand', sans-serif;
       padding: 20px;
       margin: 0;
       background: linear-gradient(to bottom right, #a1c4fd, #c2e9fb);
-      position: relative;
-      min-height: 100vh;
     }
 
     .container {
@@ -42,7 +41,7 @@
     label {
       display: block;
       margin-bottom: 10px;
-      font-weight: bold;
+      font-weight: 600;
     }
 
     select {
@@ -108,14 +107,12 @@
     }
 
     .author {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
+      margin-top: 25px;
       text-align: center;
       font-size: 13px;
-      color: rgba(0, 0, 0, 0.3);
+      color: #888;
       font-style: italic;
-      user-select: none;
+      opacity: 0.7;
     }
   </style>
 </head>
@@ -138,9 +135,10 @@
     <button onclick="predictScore()">🎉 Dự đoán ngay!</button>
     <div class="result" id="result"></div>
     <div class="message" id="message"></div>
+    <div class="author">Liên hệ mua tên miền, proxy uy tín giá rẻ <br>
+        Zalo 0913391484 (Gia Bảo)
+    </div>
   </div>
-
-  <div class="author">https:giabaosellcode <br> liên hệ mua tên miền, proxy uy tín giá rẻ Zalo 0913391484(Gia Bảo)</div>
 
   <script>
     function predictScore() {
@@ -151,6 +149,7 @@
       if (!subject) {
         resultDiv.textContent = "😅 Bạn quên chọn môn rồi!";
         resultDiv.classList.remove("animate-score");
+        resultDiv.style.opacity = 1;
         messageDiv.textContent = "";
         return;
       }
