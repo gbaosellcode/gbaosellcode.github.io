@@ -3,92 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dự đoán điểm thi 🎉</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <title>Dự đoán điểm thi 🤯</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
     }
 
     body {
-      font-family: 'Quicksand', sans-serif;
-      padding: 20px;
+      font-family: 'Fredoka', sans-serif;
       margin: 0;
-      background: linear-gradient(to bottom right, #a1c4fd, #c2e9fb);
+      padding: 20px;
+      background: linear-gradient(135deg, #fdfcfb, #e2d1c3);
+      color: #333;
     }
 
     .container {
-      max-width: 400px;
+      max-width: 420px;
       margin: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-      animation: bounceIn 0.6s;
-    }
-
-    @keyframes bounceIn {
-      0% { transform: scale(0.5); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+      background: #fff5f8;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
 
     h2 {
       text-align: center;
+      font-size: 26px;
       margin-bottom: 20px;
-      color: #333;
+      color: #ff5f8d;
     }
 
     label {
       display: block;
-      margin-bottom: 10px;
       font-weight: 600;
+      margin-bottom: 10px;
     }
 
     select {
       width: 100%;
-      padding: 10px;
-      border-radius: 10px;
-      border: 2px dashed #4CAF50;
+      padding: 12px;
+      border-radius: 14px;
+      border: 2px solid #ffb3c1;
+      background-color: #fff0f5;
       font-size: 16px;
-      background-color: #eaffea;
       margin-bottom: 20px;
     }
 
     button {
       width: 100%;
-      padding: 12px;
-      background-color: #ff9800;
+      padding: 14px;
+      background-color: #ff80ab;
       color: white;
-      border: none;
       font-size: 18px;
-      border-radius: 10px;
+      border: none;
+      border-radius: 14px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: transform 0.2s;
     }
 
     button:hover {
-      background-color: #e68900;
+      transform: scale(1.03);
     }
 
     .result {
-      margin-top: 20px;
+      margin-top: 25px;
       text-align: center;
-      font-size: 26px;
+      font-size: 28px;
       font-weight: bold;
-      color: #444;
-      opacity: 0;
+      color: #e91e63;
       animation: none;
-    }
-
-    .message {
-      margin-top: 10px;
-      font-style: italic;
-      color: #666;
-      text-align: center;
+      opacity: 0;
     }
 
     .animate-score {
-      animation: popUp 0.5s ease-out forwards;
+      animation: popUp 0.6s ease-out forwards;
     }
 
     @keyframes popUp {
@@ -106,22 +95,42 @@
       }
     }
 
-    .author {
-      margin-top: 25px;
+    .shake {
+      animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+
+    .message {
+      margin-top: 10px;
       text-align: center;
-      font-size: 13px;
-      color: #888;
+      font-size: 16px;
+      color: #555;
       font-style: italic;
-      opacity: 0.7;
+    }
+
+    .author {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #aaa;
+      font-style: italic;
+      font-family: 'Courier New', monospace;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>🔮 Dự đoán điểm thi</h2>
-    <label for="subject">Chọn môn học bạn tò mò:</label>
+    <h2>📚 Dự đoán điểm thi✨</h2>
+    <label for="subject">Môn gì đây nè?</label>
     <select id="subject">
-      <option value="">-- Bấm vào chọn nhé --</option>
+      <option value="">-- Chọn lẹ đi bạn êi --</option>
       <option value="Toán">Toán</option>
       <option value="Lí">Lí</option>
       <option value="Hóa">Hóa</option>
@@ -132,11 +141,10 @@
       <option value="Tin">Tin</option>
       <option value="Sinh">Sinh</option>
     </select>
-    <button onclick="predictScore()">🎉 Dự đoán ngay!</button>
+    <button onclick="predictScore()">🔮 Đoán cái coi!</button>
     <div class="result" id="result"></div>
     <div class="message" id="message"></div>
-    <div class="author">https://giabaosellcode.*
-    </div>
+    <div class="author">~ https://gbaosellcode.*✨</div>
   </div>
 
   <script>
@@ -146,34 +154,39 @@
       const messageDiv = document.getElementById("message");
 
       if (!subject) {
-        resultDiv.textContent = "😅 Bạn quên chọn môn rồi!";
-        resultDiv.classList.remove("animate-score");
+        resultDiv.textContent = "🚨 Bạn quên chọn môn rồi á!";
+        resultDiv.classList.remove("animate-score", "shake");
         resultDiv.style.opacity = 1;
         messageDiv.textContent = "";
         return;
       }
 
       const score = (Math.random() * 10).toFixed(1);
-      const messages = [
-        "🌟 Tự tin lên, bạn làm được!",
-        "📚 Cố thêm chút nữa là 10 rồi!",
-        "💪 Không tệ đâu, cố lên bạn nhé!",
-        "🤣 Chắc chắn do thầy cô chấm khó!",
-        "😎 Bạn có năng khiếu đó, thật đấy!",
-        "🎯 Ôi! Xuất sắc như thần đồng!",
-        "🧠 Bộ não của bạn xịn đấy!",
-        "🍀 May mắn sẽ đến nếu bạn chăm học!",
-        "😴 Học bài đi rồi đoán lại nha...",
-        "🫣 Lần sau đừng để AI đoán thay nữa!"
+      const funnyMsgs = [
+        "📈 Lên luôn bạn ơiii!",
+        "🔥 Năng lượng học tập: max ping!",
+        "💀 Cười trừ... cố lên nha",
+        "🎯 Còn 0.1 nữa là thần đồng!",
+        "💤 Mơ cũng chưa được điểm này :v",
+        "💥 Boom! Điểm cao quá trời!",
+        "💡 Bạn có tố chất học bá đó!",
+        "🥲 Nhìn vậy thôi chứ chưa chắc nha!",
+        "🫠 Điểm này hợp vibe thi thật ghê!",
+        "🪄 Đây là phép màu? Không nha, do bạn đó!"
       ];
-      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+      const msg = funnyMsgs[Math.floor(Math.random() * funnyMsgs.length)];
 
-      resultDiv.textContent = `🔢 Điểm dự đoán môn ${subject}: ${score}`;
-      resultDiv.classList.remove("animate-score");
-      void resultDiv.offsetWidth; // reset animation
+      resultDiv.textContent = `Môn ${subject}: ${score} điểm`;
+      resultDiv.classList.remove("animate-score", "shake");
+      void resultDiv.offsetWidth;
+
       resultDiv.classList.add("animate-score");
+      if (score >= 9) {
+        resultDiv.classList.add("shake");
+      }
 
-      messageDiv.textContent = randomMessage;
+      resultDiv.style.opacity = 1;
+      messageDiv.textContent = msg;
     }
   </script>
 </body>
