@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dự đoán điểm thi 🤯</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       font-family: 'Fredoka', sans-serif;
       margin: 0;
@@ -17,7 +14,6 @@
       background: linear-gradient(135deg, #fdfcfb, #e2d1c3);
       color: #333;
     }
-
     .container {
       max-width: 420px;
       margin: auto;
@@ -26,20 +22,17 @@
       padding: 24px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
-
     h2 {
       text-align: center;
       font-size: 26px;
       margin-bottom: 20px;
       color: #ff5f8d;
     }
-
     label {
       display: block;
       font-weight: 600;
       margin-bottom: 10px;
     }
-
     select {
       width: 100%;
       padding: 12px;
@@ -49,7 +42,6 @@
       font-size: 16px;
       margin-bottom: 20px;
     }
-
     button {
       width: 100%;
       padding: 14px;
@@ -61,11 +53,7 @@
       cursor: pointer;
       transition: transform 0.2s;
     }
-
-    button:hover {
-      transform: scale(1.03);
-    }
-
+    button:hover { transform: scale(1.03); }
     .result {
       margin-top: 25px;
       text-align: center;
@@ -75,30 +63,17 @@
       animation: none;
       opacity: 0;
     }
-
     .animate-score {
       animation: popUp 0.6s ease-out forwards;
     }
-
     @keyframes popUp {
-      0% {
-        transform: scale(0.3);
-        opacity: 0;
-      }
-      60% {
-        transform: scale(1.2);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
+      0% { transform: scale(0.3); opacity: 0; }
+      60% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
     }
-
     .shake {
       animation: shake 0.5s ease-in-out;
     }
-
     @keyframes shake {
       0% { transform: translateX(0); }
       25% { transform: translateX(-5px); }
@@ -106,7 +81,6 @@
       75% { transform: translateX(-5px); }
       100% { transform: translateX(0); }
     }
-
     .message {
       margin-top: 10px;
       text-align: center;
@@ -114,14 +88,23 @@
       color: #555;
       font-style: italic;
     }
-
     .author {
       margin-top: 30px;
       text-align: center;
       font-size: 14px;
-      color: #aaa;
+      color: #999;
       font-style: italic;
       font-family: 'Courier New', monospace;
+    }
+    canvas#fireworks {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+      display: none;
     }
   </style>
 </head>
@@ -136,7 +119,7 @@
       <option value="Hóa">Hóa</option>
       <option value="Văn">Văn</option>
       <option value="Sử">Sử</option>
-      <option value="Địa">Địa</option>
+    
       <option value="Anh">Anh</option>
       <option value="Tin">Tin</option>
       <option value="Sinh">Sinh</option>
@@ -144,49 +127,129 @@
     <button onclick="predictScore()">🔮 Đoán cái coi!</button>
     <div class="result" id="result"></div>
     <div class="message" id="message"></div>
-    <div class="author">~ https://gbaosellcode.*✨</div>
+    <div class="author">~ https://giabaosellcode.*</div>
   </div>
 
+  <canvas id="fireworks"></canvas>
+
   <script>
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function createFirework(x, y) {
+      for (let i = 0; i < 100; i++) {
+        particles.push({
+          x,
+          y,
+          angle: Math.random() * 2 * Math.PI,
+          speed: Math.random() * 5 + 2,
+          radius: Math.random() * 2 + 1,
+          life: 60
+        });
+      }
+    }
+
+    function animateFireworks() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, index) => {
+        const alpha = p.life / 60;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = `rgba(255, 100, 150, ${alpha})`;
+        ctx.fill();
+        p.x += Math.cos(p.angle) * p.speed;
+        p.y += Math.sin(p.angle) * p.speed;
+        p.life--;
+        if (p.life <= 0) particles.splice(index, 1);
+      });
+      if (particles.length > 0) {
+        requestAnimationFrame(animateFireworks);
+      } else {
+        canvas.style.display = 'none';
+      }
+    }
+
+    function showFireworks() {
+      const x = window.innerWidth / 2;
+      const y = window.innerHeight / 3;
+      createFirework(x, y);
+      canvas.style.display = 'block';
+      animateFireworks();
+    }
+
     function predictScore() {
       const subject = document.getElementById("subject").value;
       const resultDiv = document.getElementById("result");
       const messageDiv = document.getElementById("message");
 
       if (!subject) {
-        resultDiv.textContent = "🚨 Bạn quên chọn môn rồi á!";
+        resultDiv.textContent = "😵‍💫 Ơ bạn chưa chọn môn gì hết trơn!";
         resultDiv.classList.remove("animate-score", "shake");
         resultDiv.style.opacity = 1;
         messageDiv.textContent = "";
         return;
       }
 
-      const score = (Math.random() * 10).toFixed(1);
-      const funnyMsgs = [
-        "📈 Lên luôn bạn ơiii!",
-        "🔥 Năng lượng học tập: max ping!",
-        "💀 Cười trừ... cố lên nha",
-        "🎯 Còn 0.1 nữa là thần đồng!",
-        "💤 Mơ cũng chưa được điểm này :v",
-        "💥 Boom! Điểm cao quá trời!",
-        "💡 Bạn có tố chất học bá đó!",
-        "🥲 Nhìn vậy thôi chứ chưa chắc nha!",
-        "🫠 Điểm này hợp vibe thi thật ghê!",
-        "🪄 Đây là phép màu? Không nha, do bạn đó!"
-      ];
-      const msg = funnyMsgs[Math.floor(Math.random() * funnyMsgs.length)];
-
-      resultDiv.textContent = `Môn ${subject}: ${score} điểm`;
-      resultDiv.classList.remove("animate-score", "shake");
-      void resultDiv.offsetWidth;
-
-      resultDiv.classList.add("animate-score");
-      if (score >= 9) {
-        resultDiv.classList.add("shake");
-      }
-
       resultDiv.style.opacity = 1;
-      messageDiv.textContent = msg;
+      resultDiv.textContent = "🔄 Đang tính toán điểm thi... chờ xíu nha!";
+      messageDiv.textContent = "";
+      resultDiv.classList.remove("animate-score", "shake");
+
+      setTimeout(() => {
+        const score = (Math.random() * 9 + 1).toFixed(1); // luôn từ 1.0 đến 10.0
+        const scoreNum = parseFloat(score);
+
+        let msg = "";
+
+        if (scoreNum < 4) {
+          const lowMessages = [
+            "😵 Toang thật sự... thôi học nghề cho lẹ!",
+            "😭 Điểm này là do tổ tiên nghỉ chơi bạn đó!",
+            "🍵 Uống trà sữa xong nhớ học bài nghen!",
+            "🙃 Thôi kệ, rớt lần này cho nhớ đời!",
+            "😪 Mình của tương lai đang khóc nhẹ...",
+          ];
+          msg = lowMessages[Math.floor(Math.random() * lowMessages.length)];
+        } else if (scoreNum < 7) {
+          const midMessages = [
+            "😬 Sát vách qua môn luôn á!",
+            "😐 Ổn áp vừa đủ xài, không dám mơ cao...",
+            "😅 Trầy trật mà sống sót!",
+            "🤕 Điểm kiểu: không cao nhưng cũng không... thấp lắm!",
+            "📉 Thấp tim nhưng cao tinh thần!",
+          ];
+          msg = midMessages[Math.floor(Math.random() * midMessages.length)];
+        } else {
+          const highMessages = [
+            "🔥 Ủa gì ghê vậy trời, đỉnh chóp!",
+            "😎 Điểm như này là thi xong đi chơi được rồi á!",
+            "🏆 10 điểm không có nhưng ảo tưởng thì có!",
+            "🎉 Gọi phụ huynh khoe lẹ đi bạn!",
+            "✨ Sao chiếu mệnh học bá là đây rồi!",
+          ];
+          msg = highMessages[Math.floor(Math.random() * highMessages.length)];
+        }
+
+        resultDiv.textContent = `📊 Môn ${subject}: ${score} điểm`;
+        resultDiv.classList.remove("animate-score", "shake");
+        void resultDiv.offsetWidth;
+        resultDiv.classList.add("animate-score");
+
+        if (scoreNum >= 9) {
+          resultDiv.classList.add("shake");
+          showFireworks(); // bắn pháo hoa nếu điểm cao
+        }
+
+        messageDiv.textContent = msg;
+      }, 1500); // delay tạo hồi hộp
     }
   </script>
 </body>
