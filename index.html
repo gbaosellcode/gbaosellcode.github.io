@@ -1,256 +1,569 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dự đoán điểm thi 🤯</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thiết Kế Website Hiện Đại</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    * { box-sizing: border-box; }
     body {
-      font-family: 'Fredoka', sans-serif;
+      background-color: #f4f8fa;
+      font-family: 'Arial', sans-serif;
+      color: #1e3a8a;
       margin: 0;
-      padding: 20px;
-      background: linear-gradient(135deg, #fdfcfb, #e2d1c3);
-      color: #333;
+      padding-top: 80px;
     }
-    .container {
-      max-width: 420px;
-      margin: auto;
-      background: #fff5f8;
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    .header-bg {
+      background: linear-gradient(90deg, #1e40af, #3b82f6);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
     }
-    h2 {
-      text-align: center;
-      font-size: 26px;
-      margin-bottom: 20px;
-      color: #ff5f8d;
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    label {
-      display: block;
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(59, 130, 246, 0.2);
+    }
+    .button-tech {
+      background: linear-gradient(90deg, #1e40af, #3b82f6);
+      transition: all 0.3s ease;
+    }
+    .button-tech:hover {
+      background: linear-gradient(90deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+    }
+    .faq-item {
+      transition: background-color 0.3s ease;
+    }
+    .faq-item:hover {
+      background-color: #e0f2fe;
+    }
+    .price-table {
+      border-collapse: separate;
+      border-spacing: 0 10px;
+    }
+    .price-table th, .price-table td {
+      padding: 12px 20px;
+      background: #ffffff;
+      border: 1px solid #e0f2fe;
+    }
+    .price-table th {
+      background: #bfdbfe;
       font-weight: 600;
-      margin-bottom: 10px;
     }
-    select {
+    .price-table td:first-child {
+      border-radius: 8px 0 0 8px;
+    }
+    .price-table td:last-child {
+      border-radius: 0 8px 8px 0;
+    }
+    .estimate-section {
+      background: #e0f2fe;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .estimate-result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #ffffff;
+      border-radius: 8px;
+      border-left: 4px solid #3b82f6;
+    }
+    .result-table {
       width: 100%;
-      padding: 12px;
-      border-radius: 14px;
-      border: 2px solid #ffb3c1;
-      background-color: #fff0f5;
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-    button {
-      width: 100%;
-      padding: 14px;
-      background-color: #ff80ab;
-      color: white;
-      font-size: 18px;
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    button:hover { transform: scale(1.03); }
-    .result {
-      margin-top: 25px;
-      text-align: center;
-      font-size: 28px;
-      font-weight: bold;
-      color: #e91e63;
-      animation: none;
-      opacity: 0;
-    }
-    .animate-score {
-      animation: popUp 0.6s ease-out forwards;
-    }
-    @keyframes popUp {
-      0% { transform: scale(0.3); opacity: 0; }
-      60% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    .shake {
-      animation: shake 0.5s ease-in-out;
-    }
-    @keyframes shake {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      50% { transform: translateX(5px); }
-      75% { transform: translateX(-5px); }
-      100% { transform: translateX(0); }
-    }
-    .message {
+      border-collapse: collapse;
       margin-top: 10px;
-      text-align: center;
-      font-size: 16px;
-      color: #555;
-      font-style: italic;
     }
-    .author {
-      margin-top: 30px;
-      text-align: center;
-      font-size: 14px;
-      color: #999;
-      font-style: italic;
-      font-family: 'Courier New', monospace;
+    .result-table th, .result-table td {
+      padding: 10px;
+      border: 1px solid #e0f2fe;
+      text-align: left;
     }
-    canvas#fireworks {
+    .result-table th {
+      background: #bfdbfe;
+    }
+    .result-table tr:last-child td {
+      font-weight: bold;
+      background: #f0f9ff;
+    }
+    .checkbox-group {
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #e0f2fe;
+      padding: 10px;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+    .checkbox-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #1e3a8a;
+    }
+    /* Modal Styles */
+    .modal {
+      display: none;
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 999;
-      display: none;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+    .modal-content h2 {
+      color: #1e3a8a;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    .modal-content label {
+      color: #1e3a8a;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .modal-content input, .modal-content textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #e0f2fe;
+      border-radius: 5px;
+      font-size: 1rem;
+      color: #1e3a8a;
+    }
+    .modal-content textarea {
+      height: 100px;
+      resize: none;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      color: #1e3a8a;
+      cursor: pointer;
+    }
+    .submit-btn {
+      background: linear-gradient(90deg, #1e40af, #3b82f6);
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    .submit-btn:hover {
+      background: linear-gradient(90deg, #1e3a8a, #2563eb);
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>📚 Dự đoán điểm thi✨</h2>
-    <label for="subject">Môn gì đây nè?</label>
-    <select id="subject">
-      <option value="">-- Chọn lẹ đi bạn êi --</option>
-      <option value="Toán">Toán</option>
-      <option value="Lí">Lí</option>
-      <option value="Hóa">Hóa</option>
-      <option value="Văn">Văn</option>
-      <option value="Sử">Sử</option>
-    
-      <option value="Anh">Anh</option>
-      <option value="Tin">Tin</option>
-      <option value="Sinh">Sinh</option>
-    </select>
-    <button onclick="predictScore()">🔮 Đoán cái coi!</button>
-    <div class="result" id="result"></div>
-    <div class="message" id="message"></div>
-    <div class="author">~ https://gbaosellcode.*</div>
+  <!-- Header -->
+  <header class="header-bg text-white shadow-lg p-6 flex justify-between items-center">
+    <div class="text-2xl font-bold">TechWeb Solutions</div>
+    <nav class="space-x-6">
+      <a href="#" class="hover:text-gray-200">Trang Chủ</a>
+      <a href="#" class="hover:text-gray-200">Dịch Vụ</a>
+      <a href="#" class="hover:text-gray-200">Mẫu Thiết Kế</a>
+      <a href="#" class="contact-btn hover:text-gray-200">Liên Hệ</a>
+    </nav>
+    <button class="contact-btn button-tech text-white px-6 py-2 rounded-lg">Liên Hệ Ngay</button>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center justify-center bg-white py-20">
+    <div class="text-center max-w-4xl px-6">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Tạo Dấu Ấn Với Website Hiện Đại</h1>
+      <p class="text-lg text-gray-600 mb-8">Chúng tôi mang đến giải pháp thiết kế website tiên tiến, tối ưu hiệu suất và trải nghiệm người dùng vượt trội, giúp doanh nghiệp của bạn tỏa sáng trong kỷ nguyên số.</p>
+      <button class="button-tech text-white px-8 py-3 rounded-lg font-semibold">Khám Phá Giải Pháp</button>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Dịch Vụ Nổi Bật</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card-hover bg-white p-6 rounded-lg border border-gray-200 text-center">
+          <h3 class="text-xl font-semibold text-blue-700 mb-4">Thiết Kế Chuyên Sâu</h3>
+          <p class="text-gray-600">Tạo nên giao diện website tinh tế, chuẩn SEO, và tốc độ xử lý vượt bậc.</p>
+        </div>
+        <div class="card-hover bg-white p-6 rounded-lg border border-gray-200 text-center">
+          <h3 class="text-xl font-semibold text-blue-700 mb-4">Tương Thích Toàn Diện</h3>
+          <p class="text-gray-600">Hỗ trợ mượt mà trên mọi thiết bị, mang lại trải nghiệm liền mạch.</p>
+        </div>
+        <div class="card-hover bg-white p-6 rounded-lg border border-gray-200 text-center">
+          <h3 class="text-xl font-semibold text-blue-700 mb-4">Hỗ Trợ 24/7</h3>
+          <p class="text-gray-600">Đội ngũ chuyên gia luôn sẵn sàng đồng hành cùng bạn.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Bảng Giá Thiết Kế Website Siêu Rẻ</h2>
+      <p class="text-center text-gray-600 mb-10">Giải pháp tiết kiệm cho doanh nghiệp khởi nghiệp và cá nhân.</p>
+      <table class="price-table w-full text-left">
+        <thead>
+          <tr>
+            <th>Mục</th>
+            <th>Chi Phí Tham Khảo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Thiết Kế Website Cơ Bản</td>
+            <td>500.000 đ </td>
+          </tr>
+          <tr>
+            <td>Thiết Kế Website Nâng Cao</td>
+            <td>1.000.000 đ </td>
+          </tr>
+          <tr>
+            <td>Tên Miền .com (nếu chưa có)</td>
+            <td>250.000 - 350.000 đ/năm</td>
+          </tr>
+          <tr>
+            <td>Hosting (nếu chưa có)</td>
+            <td>500.000 - 1.000.000 đ/năm</td>
+          </tr>
+          <tr>
+            <td>SSL (https) (nếu chưa có)</td>
+            <td>Miễn phí hoặc 200.000 đ/năm</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="text-center text-gray-600 mt-6">Liên hệ ngay để nhận ưu đãi đặc biệt và tư vấn miễn phí!</p>
+      <div class="text-center mt-8">
+        <button class="contact-btn button-tech text-white px-8 py-3 rounded-lg font-semibold">Liên Hệ Ngay</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Estimate Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Dự Toán Chi Phí Làm Website</h2>
+      <p class="text-center text-gray-600 mb-6">Tùy chỉnh yêu cầu của bạn để nhận dự toán chi tiết.</p>
+      <div class="estimate-section">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Loại Website -->
+          <div>
+            <label class="block text-gray-700 mb-2">Loại Website</label>
+            <select id="website-type" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="0">Chọn loại</option>
+              <option value="500000">Website Cá Nhân (500.000 đ)</option>
+              <option value="1000000">Website Bán Hàng (1.000.000 đ)</option>
+              <option value="1500000">Website Doanh Nghiệp (1.500.000 đ)</option>
+              <option value="2000000">Website Đặt Lịch Hẹn (2.000.000 đ)</option>
+              <option value="2500000">Website Blog/Tin Tức (2.500.000 đ)</option>
+              <option value="600000">Làm Giao Diện Theo Yêu Cầu (600.000)</option>
+            </select>
+          </div>
+          <!-- Chức Năng -->
+          <div>
+            <label class="block text-gray-700 mb-2">Chức Năng</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" class="feature-checkbox" value="100000"> Đặt Hàng (100.000 đ)</label>
+              <label><input type="checkbox" class="feature-checkbox" value="150000"> Liên Hệ (150.000 đ)</label>
+              <label><input type="checkbox" class="feature-checkbox" value="2800000"> Thanh Toán Online (2.800.000 đ)</label>
+              <label><input type="checkbox" class="feature-checkbox" value="250000"> Tìm Kiếm Nâng Cao (250.000 đ)</label>
+              <label><input type="checkbox" class="feature-checkbox" value="500000"> Đăng Nhập/Đăng Ký (500.000 đ)</label>
+              <label><input type="checkbox" class="feature-checkbox" value="800000"> Chat Trực Tuyến (800.000 đ)</label>
+              <label><input type="checkbox" class="feature-checkbox" value="150000"> Đánh Giá Sản Phẩm (150.000 đ)</label>
+              <label><input type="checkbox" class="feature-checkbox" value="250000"> Blog Tích Hợp (250.000 đ)</label>
+              <label><input type="checkbox" class="feature-checkbox" value="1300000"> Hệ Thống Quản Lý Đơn Hàng (1.300.000 đ)</label>
+              <label><input type="checkbox" class="feature-checkbox" value="200000"> Bản Đồ Tích Hợp (200.000 đ)</label>
+            </div>
+          </div>
+          <!-- Tên Miền -->
+          <div>
+            <label class="block text-gray-700 mb-2">Tên Miền</label>
+            <select id="domain" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="0">Không cần</option>
+              <option value="300000">Tên Miền .com (300.000 đ/năm)</option>
+              <option value="200000">Tên Miền .net (200.000 đ/năm)</option>
+              <option value="150000">Tên Miền .org (150.000 đ/năm)</option>
+            </select>
+          </div>
+          <!-- Hosting -->
+          <div>
+            <label class="block text-gray-700 mb-2">Hosting</label>
+            <select id="hosting" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="0">Không cần</option>
+              <option value="500000">Hosting Cơ Bản - 1GB (500.000 đ/năm)</option>
+              <option value="750000">Hosting Tiêu Chuẩn - 5GB (750.000 đ/năm)</option>
+              <option value="1000000">Hosting Nâng Cao - 10GB (1.000.000 đ/năm)</option>
+            </select>
+          </div>
+          <!-- SSL -->
+          <div>
+            <label class="block text-gray-700 mb-2">SSL (https)</label>
+            <select id="ssl" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="0">Không cần</option>
+              <option value="0">SSL Miễn Phí (0 đ)</option>
+              <option value="200000">SSL Premium (200.000 đ/năm)</option>
+            </select>
+          </div>
+          <!-- Ngôn Ngữ -->
+          <div>
+            <label class="block text-gray-700 mb-2">Ngôn Ngữ Website</label>
+            <select id="language" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="0">1 Ngôn Ngữ (Miễn phí)</option>
+              <option value="300000">2 Ngôn Ngữ (300.000 đ)</option>
+              <option value="500000">Nhiều Ngôn Ngữ (500.000 đ)</option>
+            </select>
+          </div>
+          <!-- Bảo Hành -->
+          <div>
+            <label class="block text-gray-700 mb-2">Bảo Hành Website</label>
+            <select id="warranty" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="0">Bảo Hành 6 Tháng (miễn phí)</option>
+              <option value="500000">Bảo Hành 1 Năm (500.000 đ)</option>
+              <option value="800000">Bảo Hành 2 Năm (800.000 đ)</option>
+            </select>
+          </div>
+          <!-- Tối Ưu SEO -->
+          <div>
+            <label class="block text-gray-700 mb-2">Tối Ưu SEO</label>
+            <select id="seo" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="0">Không cần</option>
+              <option value="300000">Tối Ưu SEO Cơ Bản (300.000 đ)</option>
+              <option value="600000">Tối Ưu SEO Nâng Cao (600.000 đ)</option>
+            </select>
+          </div>
+          <!-- Bảo Mật -->
+          <div>
+            <label class="block text-gray-700 mb-2">Bảo Mật</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" class="security-checkbox" value="100000"> Bảo Mật Đăng Nhập 2FA (100.000 đ)</label>
+              <label><input type="checkbox" class="security-checkbox" value="150000"> Tường Lửa Cơ Bản (150.000 đ)</label>
+              <label><input type="checkbox" class="security-checkbox" value="200000"> Chống DDoS (200.000 đ)</label>
+              <label><input type="checkbox" class="security-checkbox" value="250000"> Mã Hóa Dữ Liệu (250.000 đ)</label>
+              <label><input type="checkbox" class="security-checkbox" value="300000"> Giám Sát 24/7 (300.000 đ)</label>
+              <label><input type="checkbox" class="security-checkbox" value="50000"> Mã Hóa Đường Truyền (50.000 đ)</label>
+              <label><input type="checkbox" class="security-checkbox" value="150000"> Sao Lưu Hàng Ngày (150.000 đ)</label>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-6">
+          <button id="calculate" class="button-tech text-white px-6 py-2 rounded-lg font-semibold">Tính Chi Phí</button>
+        </div>
+        <div id="result" class="estimate-result hidden text-gray-800"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Câu Hỏi Thường Gặp</h2>
+      <div class="space-y-6">
+        <div class="faq-item p-6 bg-gray-100 rounded-lg border-l-4 border-blue-500">
+          <p class="text-gray-800">Quy trình thiết kế website tại TechWeb diễn ra như thế nào?</p>
+        </div>
+        <div class="faq-item p-6 bg-gray-100 rounded-lg border-l-4 border-blue-500">
+          <p class="text-gray-800">Chi phí thiết kế website có linh hoạt không?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Button -->
+  <button class="contact-btn fixed bottom-6 right-6 bg-blue-600 text-white px-5 py-3 rounded-full flex items-center space-x-2 hover:bg-blue-700 transition duration-300">
+    <span>Liên Hệ Ngay</span>
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+    </svg>
+  </button>
+
+  <!-- Contact Modal -->
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Liên Hệ Với Chúng Tôi</h2>
+      <form id="contactForm">
+        <label for="name">Họ và Tên</label>
+        <input type="text" id="name" name="name" required placeholder="Nhập họ và tên">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="Nhập email của bạn">
+
+        <label for="phone">Số Điện Thoại</label>
+        <input type="tel" id="phone" name="phone" required placeholder="Nhập số điện thoại">
+
+        <label for="message">Nội Dung</label>
+        <textarea id="message" name="message" required placeholder="Nhập nội dung tin nhắn"></textarea>
+
+        <button type="submit" class="submit-btn">Gửi Tin Nhắn</button>
+      </form>
+      <p style="text-align: center; color: black;">Hoặc qua Zalo 091.3391.484 (Gia Bảo) hoặc qua </p>
+      <a href="https://www.facebook.com/huynh.gia.bao.716372" class="">Facebook: Huỳnh Gia Bảo</a>
+    </div>
   </div>
 
-  <canvas id="fireworks"></canvas>
-
   <script>
-    const canvas = document.getElementById('fireworks');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
+    // Xử lý tính chi phí (giữ nguyên đoạn code cũ)
+    document.getElementById('calculate').addEventListener('click', function() {
+      const websiteType = parseInt(document.getElementById('website-type').value);
+      const domain = parseInt(document.getElementById('domain').value);
+      const hosting = parseInt(document.getElementById('hosting').value);
+      const ssl = parseInt(document.getElementById('ssl').value);
+      const language = parseInt(document.getElementById('language').value);
+      const warranty = parseInt(document.getElementById('warranty').value);
+      const seo = parseInt(document.getElementById('seo').value);
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    function createFirework(x, y) {
-      for (let i = 0; i < 100; i++) {
-        particles.push({
-          x,
-          y,
-          angle: Math.random() * 2 * Math.PI,
-          speed: Math.random() * 5 + 2,
-          radius: Math.random() * 2 + 1,
-          life: 60
+      const featureCheckboxes = document.querySelectorAll('.feature-checkbox:checked');
+      let featuresCost = 0;
+      let featuresList = [];
+      featureCheckboxes.forEach(checkbox => {
+        const cost = parseInt(checkbox.value);
+        featuresCost += cost;
+        featuresList.push({
+          name: checkbox.parentElement.textContent.trim(),
+          cost: cost
         });
-      }
-    }
-
-    function animateFireworks() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p, index) => {
-        const alpha = p.life / 60;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
-        ctx.fillStyle = `rgba(255, 100, 150, ${alpha})`;
-        ctx.fill();
-        p.x += Math.cos(p.angle) * p.speed;
-        p.y += Math.sin(p.angle) * p.speed;
-        p.life--;
-        if (p.life <= 0) particles.splice(index, 1);
       });
-      if (particles.length > 0) {
-        requestAnimationFrame(animateFireworks);
+
+      const securityCheckboxes = document.querySelectorAll('.security-checkbox:checked');
+      let securityCost = 0;
+      let securityList = [];
+      securityCheckboxes.forEach(checkbox => {
+        const cost = parseInt(checkbox.value);
+        securityCost += cost;
+        securityList.push({
+          name: checkbox.parentElement.textContent.trim(),
+          cost: cost
+        });
+      });
+
+      const total = websiteType + featuresCost + domain + hosting + ssl + language + warranty + seo + securityCost;
+      const resultDiv = document.getElementById('result');
+
+      if (total > 0) {
+        resultDiv.classList.remove('hidden');
+        let tableRows = '';
+
+        if (websiteType > 0) {
+          tableRows += `<tr><td>Loại Website</td><td>${websiteType.toLocaleString()} đ</td></tr>`;
+        }
+        if (featuresList.length > 0) {
+          featuresList.forEach(feature => {
+            tableRows += `<tr><td>${feature.name}</td><td>${feature.cost.toLocaleString()} đ</td></tr>`;
+          });
+        }
+        if (domain > 0) {
+          tableRows += `<tr><td>Tên Miền</td><td>${domain.toLocaleString()} đ/năm</td></tr>`;
+        }
+        if (hosting > 0) {
+          tableRows += `<tr><td>Hosting</td><td>${hosting.toLocaleString()} đ/năm</td></tr>`;
+        }
+        if (ssl > 0) {
+          tableRows += `<tr><td>SSL</td><td>${ssl.toLocaleString()} đ/năm</td></tr>`;
+        }
+        if (language > 0) {
+          tableRows += `<tr><td>Ngôn Ngữ</td><td>${language.toLocaleString()} đ</td></tr>`;
+        }
+        if (warranty > 0) {
+          tableRows += `<tr><td>Bảo Hành</td><td>${warranty.toLocaleString()} đ</td></tr>`;
+        }
+        if (seo > 0) {
+          tableRows += `<tr><td>Tối Ưu SEO</td><td>${seo.toLocaleString()} đ</td></tr>`;
+        }
+        if (securityList.length > 0) {
+          securityList.forEach(security => {
+            tableRows += `<tr><td>${security.name}</td><td>${security.cost.toLocaleString()} đ</td></tr>`;
+          });
+        }
+        tableRows += `<tr><td>Tổng Cộng</td><td>${total.toLocaleString()} đ</td></tr>`;
+
+        resultDiv.innerHTML = `
+          <h4 class="text-lg font-semibold mb-4">Bảng Thống Kê Chi Phí</h4>
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th>Hạng Mục</th>
+                <th>Chi Phí</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${tableRows}
+            </tbody>
+          </table>
+        `;
       } else {
-        canvas.style.display = 'none';
+        resultDiv.classList.add('hidden');
       }
-    }
+    });
 
-    function showFireworks() {
-      const x = window.innerWidth / 2;
-      const y = window.innerHeight / 3;
-      createFirework(x, y);
-      canvas.style.display = 'block';
-      animateFireworks();
-    }
+    // Xử lý chức năng Liên Hệ
+    const modal = document.getElementById('contactModal');
+    const contactBtns = document.querySelectorAll('.contact-btn');
+    const closeBtn = document.querySelector('.close-btn');
+    const contactForm = document.getElementById('contactForm');
 
-    function predictScore() {
-      const subject = document.getElementById("subject").value;
-      const resultDiv = document.getElementById("result");
-      const messageDiv = document.getElementById("message");
+    // Mở modal khi nhấn nút "Liên Hệ Ngay"
+    contactBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        modal.style.display = 'flex';
+      });
+    });
 
-      if (!subject) {
-        resultDiv.textContent = "😵‍💫 Ơ bạn chưa chọn môn gì hết trơn!";
-        resultDiv.classList.remove("animate-score", "shake");
-        resultDiv.style.opacity = 1;
-        messageDiv.textContent = "";
-        return;
+    // Đóng modal khi nhấn nút "X"
+    closeBtn.addEventListener('click', function() {
+      modal.style.display = 'none';
+      contactForm.reset(); // Xóa dữ liệu form sau khi đóng
+    });
+
+    // Đóng modal khi nhấn bên ngoài modal
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+        contactForm.reset();
       }
+    });
 
-      resultDiv.style.opacity = 1;
-      resultDiv.textContent = "🔄 Đang tính toán điểm thi... chờ xíu nha!";
-      messageDiv.textContent = "";
-      resultDiv.classList.remove("animate-score", "shake");
+    // Xử lý khi gửi form
+    contactForm.addEventListener('submit', function(event) {
+      event.preventDefault();
 
-      setTimeout(() => {
-        const score = (Math.random() * 9 + 1).toFixed(1); // luôn từ 1.0 đến 10.0
-        const scoreNum = parseFloat(score);
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const message = document.getElementById('message').value;
 
-        let msg = "";
+      // In dữ liệu ra console (thay thế bằng gửi email hoặc lưu vào backend nếu cần)
+      console.log('Thông tin liên hệ:', {
+        name: name,
+        email: email,
+        phone: phone,
+        message: message
+      });
 
-        if (scoreNum < 4) {
-          const lowMessages = [
-            "😵 Toang thật sự... thôi học nghề cho lẹ!",
-            "😭 Điểm này là do tổ tiên nghỉ chơi bạn đó!",
-            "🍵 Uống trà sữa xong nhớ học bài nghen!",
-            "🙃 Thôi kệ, rớt lần này cho nhớ đời!",
-            "😪 Mình của tương lai đang khóc nhẹ...",
-          ];
-          msg = lowMessages[Math.floor(Math.random() * lowMessages.length)];
-        } else if (scoreNum < 7) {
-          const midMessages = [
-            "😬 Sát vách qua môn luôn á!",
-            "😐 Ổn áp vừa đủ xài, không dám mơ cao...",
-            "😅 Trầy trật mà sống sót!",
-            "🤕 Điểm kiểu: không cao nhưng cũng không... thấp lắm!",
-            "📉 Thấp tim nhưng cao tinh thần!",
-          ];
-          msg = midMessages[Math.floor(Math.random() * midMessages.length)];
-        } else {
-          const highMessages = [
-            "🔥 Ủa gì ghê vậy trời, đỉnh chóp!",
-            "😎 Điểm như này là thi xong đi chơi được rồi á!",
-            "🏆 10 điểm không có nhưng ảo tưởng thì có!",
-            "🎉 Gọi phụ huynh khoe lẹ đi bạn!",
-            "✨ Sao chiếu mệnh học bá là đây rồi!",
-          ];
-          msg = highMessages[Math.floor(Math.random() * highMessages.length)];
-        }
+      // Hiển thị thông báo gửi thành công
+      alert('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất có thể.');
 
-        resultDiv.textContent = `📊 Môn ${subject}: ${score} điểm`;
-        resultDiv.classList.remove("animate-score", "shake");
-        void resultDiv.offsetWidth;
-        resultDiv.classList.add("animate-score");
-
-        if (scoreNum >= 9) {
-          resultDiv.classList.add("shake");
-          showFireworks(); // bắn pháo hoa nếu điểm cao
-        }
-
-        messageDiv.textContent = msg;
-      }, 1500); // delay tạo hồi hộp
-    }
+      // Đóng modal và reset form
+      modal.style.display = 'none';
+      contactForm.reset();
+    });
   </script>
 </body>
 </html>
