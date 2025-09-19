@@ -2,180 +2,197 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dự đoán điểm thi 🎉</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <title>Chúc mừng sinh nhật</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'Quicksand', sans-serif;
-      padding: 20px;
-      margin: 0;
-      background: linear-gradient(to bottom right, #a1c4fd, #c2e9fb);
-    }
-
-    .container {
-      max-width: 400px;
-      margin: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-      animation: bounceIn 0.6s;
-    }
-
-    @keyframes bounceIn {
-      0% { transform: scale(0.5); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
+      margin: 0; padding: 0;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7, #a1c4fd, #c2e9fb);
+      background-size: 400% 400%;
+      animation: bgmove 10s ease infinite;
       color: #333;
+      text-align: center;
     }
-
-    label {
-      display: block;
-      margin-bottom: 10px;
-      font-weight: 600;
+    @keyframes bgmove {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
     }
-
-    select {
-      width: 100%;
-      padding: 10px;
-      border-radius: 10px;
-      border: 2px dashed #4CAF50;
-      font-size: 16px;
-      background-color: #eaffea;
-      margin-bottom: 20px;
+    .page {
+      display: none;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
     }
-
+    .active { display: flex; }
     button {
-      width: 100%;
-      padding: 12px;
-      background-color: #ff9800;
-      color: white;
-      border: none;
-      font-size: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    button:hover {
-      background-color: #e68900;
-    }
-
-    .result {
       margin-top: 20px;
-      text-align: center;
-      font-size: 26px;
-      font-weight: bold;
-      color: #444;
-      opacity: 0;
-      animation: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-
-    .message {
-      margin-top: 10px;
-      font-style: italic;
-      color: #666;
-      text-align: center;
+    button:hover { transform: scale(1.05); }
+    h1, h2 { margin: 10px 0; }
+    /* Vòng quay */
+    .wheel-container { position: relative; width: 280px; height: 280px; margin: 20px auto; }
+    .wheel {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      border: 10px solid #ff6b6b;
+      position: relative;
+      overflow: hidden;
+      transition: transform 4s cubic-bezier(.17,.67,.83,.67);
+      background: conic-gradient(
+        #ff6b6b 0deg 60deg,
+        #feca57 60deg 120deg,
+        #48dbfb 120deg 180deg,
+        #1dd1a1 180deg 240deg,
+        #5f27cd 240deg 300deg,
+        #ff9ff3 300deg 360deg
+      );
     }
-
-    .animate-score {
-      animation: popUp 0.5s ease-out forwards;
+    .pointer {
+      width: 0; height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 40px solid #333;
+      position: absolute;
+      top: -45px; left: 50%;
+      transform: translateX(-50%);
     }
-
-    @keyframes popUp {
-      0% {
-        transform: scale(0.3);
-        opacity: 0;
-      }
-      60% {
-        transform: scale(1.2);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
+    .card-info {
+      background: #fff;
+      border: 3px solid #ff6b6b;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 320px;
+      margin: auto;
+      box-shadow: 0 0 20px rgba(255,107,107,0.6);
     }
-
-    .author {
-      margin-top: 25px;
-      text-align: center;
-      font-size: 13px;
-      color: #888;
-      font-style: italic;
-      opacity: 0.7;
+    img {
+      max-width: 90%;
+      border-radius: 15px;
+      margin: 10px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    /* Nhạc nền */
+    #music-control {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: rgba(255,255,255,0.8);
+      border: 2px solid #ff6b6b;
+      border-radius: 50%;
+      width: 50px; height: 50px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>🔮 Dự đoán điểm thi</h2>
-    <label for="subject">Chọn môn học bạn tò mò:</label>
-    <select id="subject">
-      <option value="">-- Bấm vào chọn nhé --</option>
-      <option value="Toán">Toán</option>
-      <option value="Lí">Lí</option>
-      <option value="Hóa">Hóa</option>
-      <option value="Văn">Văn</option>
-      <option value="Sử">Sử</option>
-      <option value="Địa">Địa</option>
-      <option value="Anh">Anh</option>
-      <option value="Tin">Tin</option>
-      <option value="Sinh">Sinh</option>
-    </select>
-    <button onclick="predictScore()">🎉 Dự đoán ngay!</button>
-    <div class="result" id="result"></div>
-    <div class="message" id="message"></div>
-    <div class="author">Liên hệ mua tên miền, proxy uy tín giá rẻ <br>
-        Zalo 0913391484 (Gia Bảo)
-    </div>
+
+<audio id="bg-music" loop autoplay>
+  <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" type="audio/mpeg">
+</audio>
+<div id="music-control">🔊</div>
+
+<!-- Trang 1 -->
+<div class="page active">
+  <h1>19/09/2009</h1>
+  <button onclick="nextPage()">Tiếp tục</button>
+</div>
+
+<!-- Trang 2 -->
+<div class="page">
+  <h1>🎂 Chúc mừng sinh nhật 🎂</h1>
+  <h2>"Happy new year"</h2>
+  <h2>Huỳnh Phát Lộc</h2>
+  <button onclick="nextPage()">Tiếp tục</button>
+</div>
+
+<!-- Trang 3 -->
+<div class="page">
+  <h2>✨ Chúc bạn tuổi mới thật nhiều niềm vui, sức khỏe và thành công! ✨</h2>
+  <button onclick="nextPage()">Tiếp tục</button>
+</div>
+
+<!-- Trang 4: Vòng quay -->
+<div class="page">
+  <h2>🎡 Vòng quay may mắn 🎡</h2>
+  <div class="wheel-container">
+    <div class="pointer"></div>
+    <div class="wheel" id="wheel"></div>
   </div>
+  <button onclick="spin()">Quay</button>
+  <p id="result"></p>
+  <button id="nextBtn" style="display:none;" onclick="nextPage()">Tiếp tục</button>
+</div>
 
-  <script>
-    function predictScore() {
-      const subject = document.getElementById("subject").value;
-      const resultDiv = document.getElementById("result");
-      const messageDiv = document.getElementById("message");
+<!-- Trang 5: Thông tin thẻ -->
+<div class="page">
+  <div class="card-info">
+    <h2>🎁 Thẻ Garena 50K</h2>
+    <p><b>Mã thẻ:</b> 0178956277213164</p>
+    <p><b>Seri:</b> 757981054</p>
+    <p><b>HSD:</b> 01/09/2028</p>
+  </div>
+  <button onclick="nextPage()">Tiếp tục</button>
+</div>
 
-      if (!subject) {
-        resultDiv.textContent = "😅 Bạn quên chọn môn rồi!";
-        resultDiv.classList.remove("animate-score");
-        resultDiv.style.opacity = 1;
-        messageDiv.textContent = "";
-        return;
-      }
+<!-- Trang 6: Hình ảnh -->
+<div class="page">
+  <h2>📸 Những kỷ niệm cùng bạn 📸</h2>
+  <img src="z7029170797278_eab92b5f632ed6bcbb3e53fa38fa3eb1.jpg" alt="Hình 1">
+  <img src="z7029170807595_1e83b675046a6dc01d3123c833fc471b.jpg" alt="Hình 2">
+  <img src="z7029170811511_1d71eac63daa0dd59c9698ad066adfab.jpg" alt="Hình 3">
+  <button onclick="nextPage()">Tiếp tục</button>
+</div>
 
-      const score = (Math.random() * 10).toFixed(1);
-      const messages = [
-        "🌟 Tự tin lên, bạn làm được!",
-        "📚 Cố thêm chút nữa là 10 rồi!",
-        "💪 Không tệ đâu, cố lên bạn nhé!",
-        "🤣 Chắc chắn do thầy cô chấm khó!",
-        "😎 Bạn có năng khiếu đó, thật đấy!",
-        "🎯 Ôi! Xuất sắc như thần đồng!",
-        "🧠 Bộ não của bạn xịn đấy!",
-        "🍀 May mắn sẽ đến nếu bạn chăm học!",
-        "😴 Học bài đi rồi đoán lại nha...",
-        "🫣 Lần sau đừng để AI đoán thay nữa!"
-      ];
-      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+<!-- Trang cuối -->
+<div class="page">
+  <h1>Bao Giả</h1>
+  <h2 style="color: chocolate;">💖 Chúc mừng sinh nhật Huỳnh Phát Lộc 💖</h2>
+</div>
 
-      resultDiv.textContent = `🔢 Điểm dự đoán môn ${subject}: ${score}`;
-      resultDiv.classList.remove("animate-score");
-      void resultDiv.offsetWidth; // reset animation
-      resultDiv.classList.add("animate-score");
+<script>
+let current = 0;
+const pages = document.querySelectorAll('.page');
+function nextPage() {
+  pages[current].classList.remove('active');
+  current++;
+  if (current < pages.length) pages[current].classList.add('active');
+}
 
-      messageDiv.textContent = randomMessage;
-    }
-  </script>
+function spin() {
+  const wheel = document.getElementById('wheel');
+  const deg = 360*5 + 30; // luôn dừng tại ô trúng 50K
+  wheel.style.transform = `rotate(${deg}deg)`;
+  setTimeout(()=>{
+    document.getElementById('result').innerText = "🎉 Bạn nhận được thẻ Garena 50K!";
+    let audio = new Audio("https://www.myinstants.com/media/sounds/cash-register.mp3");
+    audio.play();
+    document.getElementById('nextBtn').style.display = "inline-block";
+  },4000);
+}
+
+/* Nhạc nền */
+const music = document.getElementById('bg-music');
+const musicBtn = document.getElementById('music-control');
+musicBtn.addEventListener('click', ()=>{
+  if(music.paused){ music.play(); musicBtn.innerText="🔊"; }
+  else{ music.pause(); musicBtn.innerText="🔈"; }
+});
+</script>
+
 </body>
 </html>
