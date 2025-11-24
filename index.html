@@ -3,71 +3,71 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Đang mở trang…</title>
+  <title>Truy cập trang web</title>
 
   <style>
     body {
       font-family: sans-serif;
       text-align: center;
-      padding: 40px;
+      padding: 30px;
+      line-height: 1.6;
     }
 
-    /* Đây là lý do nút luôn xuất hiện ở giữa màn hình */
-    .center-box {
-      margin-top: 100px;
-    }
-
-    #openBrowserBtn {
-      display: none;
-      padding: 18px 28px;
-      background: #0066ff;
+    .btn {
+      padding: 15px 25px;
+      font-size: 22px;
+      background: #007bff;
       color: white;
       text-decoration: none;
-      border-radius: 12px;
-      font-size: 22px;
-      font-weight: bold;
-      margin-top: 30px;
+      border-radius: 10px;
       display: inline-block;
+      margin-top: 20px;
+    }
+
+    .note {
+      font-size: 16px;
+      margin-top: 25px;
+      color: #444;
+    }
+
+    /* MÀU CHO LINK TRONG ĐOẠN NOTE */
+    .link {
+      color: red;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .link:hover {
+      color: orange;
+    }
+
+    .example {
+      margin-top: 20px;
     }
   </style>
-
-  <script>
-    const target = "https://duthithptlaivung1.pages.dev/";
-
-    function isInAppBrowser() {
-      const ua = navigator.userAgent.toLowerCase();
-      return (
-        ua.includes("zalo") ||
-        ua.includes("fb") ||
-        ua.includes("messenger") ||
-        ua.includes("tiktok") ||
-        ua.includes("instagram") ||
-        ua.includes("twitter")
-      );
-    }
-
-    window.onload = () => {
-      const btn = document.getElementById("openBrowserBtn");
-
-      if (!isInAppBrowser()) {
-        window.location.replace(target);
-      } else {
-        // BẮT BUỘC hiển thị nút
-        btn.style.display = "inline-block";
-      }
-    };
-  </script>
 </head>
 
 <body>
-  <div class="center-box">
-    <h2>Đang mở trang…</h2>
-    <p>Nếu trang không tự mở, hãy bấm nút bên dưới:</p>
 
-    <!-- Nút sẽ luôn hiện vì bị style ép -->
-    <a id="openBrowserBtn" href="https://duthithptlaivung1.pages.dev/" target="_blank">
-      MỞ BẰNG TRÌNH DUYỆT
+  <h2>Bấm vào nút bên dưới để truy cập trang web</h2>
+
+  <a class="btn" href="https://duthithptlaivung1.pages.dev/" target="_blank">
+    MỞ TRANG WEB
+  </a>
+
+  <p class="note">
+    Nếu không truy cập được, quý thầy cô vui lòng COPY đường link<br> 
+    <a class="link" href="https://duthithptlaivung1.pages.dev/" target="_blank">
+      https://duthithptlaivung1.pages.dev/
     </a>
+    <br>
+    và DÁN vào trình duyệt Chrome hoặc Safari để mở trang web.
+  </p>
+
+  <div class="example">
+    <p><i>(Ví dụ hình ảnh trường hợp không truy cập được)</i></p>
+    <img src="vd.jpg" width="300">
   </div>
+
 </body>
 </html>
