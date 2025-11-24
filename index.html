@@ -2,8 +2,8 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Đang chuyển hướng…</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đang mở trang…</title>
 
   <style>
     body {
@@ -11,22 +11,29 @@
       text-align: center;
       padding: 40px;
     }
+
+    /* Đây là lý do nút luôn xuất hiện ở giữa màn hình */
+    .center-box {
+      margin-top: 100px;
+    }
+
     #openBrowserBtn {
       display: none;
-      padding: 15px 25px;
-      background: #007bff;
+      padding: 18px 28px;
+      background: #0066ff;
       color: white;
       text-decoration: none;
-      border-radius: 10px;
-      font-size: 20px;
-      margin-top: 20px;
+      border-radius: 12px;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 30px;
+      display: inline-block;
     }
   </style>
 
   <script>
     const target = "https://gbaosellcode.github.io";
 
-    // Phát hiện WebView của Zalo / FB / TikTok
     function isInAppBrowser() {
       const ua = navigator.userAgent.toLowerCase();
       return (
@@ -34,35 +41,33 @@
         ua.includes("fb") ||
         ua.includes("messenger") ||
         ua.includes("tiktok") ||
-        ua.includes("instagram")
+        ua.includes("instagram") ||
+        ua.includes("twitter")
       );
     }
 
     window.onload = () => {
-      const alreadyRedirected = localStorage.getItem("redirect_done");
+      const btn = document.getElementById("openBrowserBtn");
 
       if (!isInAppBrowser()) {
-
-        // Nếu đã redirect 1 lần → KHÔNG redirect nữa (chống lặp vô hạn)
-        if (!alreadyRedirected) {
-          localStorage.setItem("redirect_done", "yes");
-          window.location.replace(target);
-        }
-
+        window.location.replace(target);
       } else {
-        // Nếu WebView → hiện nút
-        document.getElementById("openBrowserBtn").style.display = "inline-block";
+        // BẮT BUỘC hiển thị nút
+        btn.style.display = "inline-block";
       }
     };
   </script>
 </head>
 
 <body>
-  <h2>Đang mở trang…</h2>
-  <p>Nếu trang không tự mở, hãy bấm nút bên dưới:</p>
+  <div class="center-box">
+    <h2>Đang mở trang…</h2>
+    <p>Nếu trang không tự mở, hãy bấm nút bên dưới:</p>
 
-  <a id="openBrowserBtn" href="https://gbaosellcode.github.io" target="_blank">
-    MỞ BẰNG TRÌNH DUYỆT
-  </a>
+    <!-- Nút sẽ luôn hiện vì bị style ép -->
+    <a id="openBrowserBtn" href="https://gbaosellcode.github.io" target="_blank">
+      MỞ BẰNG TRÌNH DUYỆT
+    </a>
+  </div>
 </body>
 </html>
