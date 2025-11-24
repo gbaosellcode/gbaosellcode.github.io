@@ -1,4 +1,4 @@
-   <!doctype html>
+<!doctype html>
 <html lang="vi">
 <head>
   <meta charset="utf-8">
@@ -6,9 +6,9 @@
   <title>Đang chuyển hướng…</title>
 
   <style>
-    body { 
-      font-family: sans-serif; 
-      text-align: center; 
+    body {
+      font-family: sans-serif;
+      text-align: center;
       padding: 40px;
     }
     #openBrowserBtn {
@@ -26,7 +26,7 @@
   <script>
     const target = "https://gbaosellcode.github.io";
 
-    // Hàm phát hiện app như Zalo, Facebook, TikTok (WebView)
+    // Phát hiện WebView của Zalo / FB / TikTok
     function isInAppBrowser() {
       const ua = navigator.userAgent.toLowerCase();
       return (
@@ -34,17 +34,23 @@
         ua.includes("fb") ||
         ua.includes("messenger") ||
         ua.includes("tiktok") ||
-        ua.includes("instagram") ||
-        ua.includes("twitter")
+        ua.includes("instagram")
       );
     }
 
     window.onload = () => {
+      const alreadyRedirected = localStorage.getItem("redirect_done");
+
       if (!isInAppBrowser()) {
-        // Nếu không phải WebView → tự động chuyển hướng
-        window.location.replace(target);
+
+        // Nếu đã redirect 1 lần → KHÔNG redirect nữa (chống lặp vô hạn)
+        if (!alreadyRedirected) {
+          localStorage.setItem("redirect_done", "yes");
+          window.location.replace(target);
+        }
+
       } else {
-        // Nếu WebView → hiện nút để người dùng tự mở
+        // Nếu WebView → hiện nút
         document.getElementById("openBrowserBtn").style.display = "inline-block";
       }
     };
@@ -53,7 +59,7 @@
 
 <body>
   <h2>Đang mở trang…</h2>
-  <p>Nếu trang không tự chuyển, hãy bấm nút bên dưới:</p>
+  <p>Nếu trang không tự mở, hãy bấm nút bên dưới:</p>
 
   <a id="openBrowserBtn" href="https://gbaosellcode.github.io" target="_blank">
     MỞ BẰNG TRÌNH DUYỆT
