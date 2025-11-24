@@ -1,26 +1,62 @@
-<!doctype html>
+   <!doctype html>
 <html lang="vi">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Đang chuyển hướng…</title>
 
-  <!-- Chuyển hướng ngay lập tức tới link của bạn -->
-  <meta http-equiv="refresh" content="0;url=https://duthithptlaivung1.pages.dev/">
-
-  <title>Redirecting…</title>
+  <style>
+    body { 
+      font-family: sans-serif; 
+      text-align: center; 
+      padding: 40px;
+    }
+    #openBrowserBtn {
+      display: none;
+      padding: 15px 25px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+  </style>
 
   <script>
-    const target = "https://duthithptlaivung1.pages.dev/";
-    try {
-      window.location.replace(target);
-    } catch (e) {
-      window.location.assign(target);
+    const target = "https://gbaosellcode.github.io";
+
+    // Hàm phát hiện app như Zalo, Facebook, TikTok (WebView)
+    function isInAppBrowser() {
+      const ua = navigator.userAgent.toLowerCase();
+      return (
+        ua.includes("zalo") ||
+        ua.includes("fb") ||
+        ua.includes("messenger") ||
+        ua.includes("tiktok") ||
+        ua.includes("instagram") ||
+        ua.includes("twitter")
+      );
     }
+
+    window.onload = () => {
+      if (!isInAppBrowser()) {
+        // Nếu không phải WebView → tự động chuyển hướng
+        window.location.replace(target);
+      } else {
+        // Nếu WebView → hiện nút để người dùng tự mở
+        document.getElementById("openBrowserBtn").style.display = "inline-block";
+      }
+    };
   </script>
 </head>
+
 <body>
-  <p>Nếu trình duyệt không tự động chuyển hướng, bấm vào đây:
-    <a href="https://duthithptlaivung1.pages.dev/">website học tập tích hợp AI</a>
-  </p>
+  <h2>Đang mở trang…</h2>
+  <p>Nếu trang không tự chuyển, hãy bấm nút bên dưới:</p>
+
+  <a id="openBrowserBtn" href="https://gbaosellcode.github.io" target="_blank">
+    MỞ BẰNG TRÌNH DUYỆT
+  </a>
 </body>
 </html>
