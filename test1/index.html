@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trại Xuân Ngô Quyền - 11A8 K60 THPT Lai Vung 1</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
+      color: #fff;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* Hero - Trại Xuân Ngô Quyền nổi bật */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/27/Ng%C3%B4_Quy%E1%BB%81n_%C4%91%E1%BA%A1i_ph%C3%A1_qu%C3%A2n_Nam_H%C3%A1n_tr%C3%AAn_s%C3%B4ng_B%E1%BA%A1ch_%C4%90%E1%BA%B1ng.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.55) contrast(1.15) sepia(0.15);
+      z-index: 1;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      z-index: 2;
+    }
+
+    .hero .content {
+      position: relative;
+      z-index: 3;
+      padding: 20px;
+    }
+
+    .title {
+      font-size: 3.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      text-shadow: 3px 3px 10px rgba(0,0,0,0.9);
+      margin-bottom: 8px;
+      color: #ffd700;
+    }
+
+    .subtitle {
+      font-size: 1.9rem;
+      font-weight: 600;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+      color: #ffffff;
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 480px) {
+      .title { font-size: 3rem; }
+      .subtitle { font-size: 1.6rem; }
+    }
+
+    /* Ngô Quyền - fade-in từ dưới */
+    .ngo-quyen-section {
+      padding: 60px 15px 100px;
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      text-align: center;
+      min-height: 80vh;
+    }
+
+    .ngo-quyen-img-wrapper {
+      opacity: 0;
+      transform: translateY(120px);
+      transition: all 1.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+
+    .ngo-quyen-img-wrapper.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .ngo-quyen-img {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 0 8px rgba(255,215,0,0.15);
+      border: 4px solid #ffd700;
+    }
+
+    .caption {
+      margin-top: 25px;
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #ffd700;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+    }
+
+    /* Giới thiệu Trại Xuân - hoa sen rơi, không khí Tết */
+    .intro-section {
+      position: relative;
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(to bottom, #ffecd2, #fcb69f, #ff9a8b);
+      color: #333;
+      overflow: hidden;
+    }
+
+    .intro-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('https://vietsensetravel.com/view/at_ruc-ro-mua-hoa-sen-no-ro-o-dong-thap-muoi--anh-1_b891afa8c72737d4b96cc5213f83f987.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      filter: blur(4px);
+      z-index: 0;
+    }
+
+    .petals-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800') center/cover;
+      background-size: contain;
+      opacity: 0.7;
+      animation: fall linear infinite;
+      will-change: transform, opacity;
+    }
+
+    .petal:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; }
+    .petal:nth-child(2) { left: 25%; animation-duration: 15s; animation-delay: 2s; width: 40px; height: 40px; }
+    .petal:nth-child(3) { left: 40%; animation-duration: 18s; animation-delay: 4s; }
+    .petal:nth-child(4) { left: 55%; animation-duration: 14s; animation-delay: 1s; width: 35px; height: 35px; }
+    .petal:nth-child(5) { left: 70%; animation-duration: 16s; animation-delay: 3s; }
+    .petal:nth-child(6) { left: 85%; animation-duration: 13s; animation-delay: 5s; width: 45px; height: 45px; }
+    .petal:nth-child(7) { left: 5%; animation-duration: 17s; animation-delay: 6s; }
+    .petal:nth-child(8) { left: 35%; animation-duration: 20s; animation-delay: 8s; width: 28px; height: 28px; }
+
+    @keyframes fall {
+      0% { transform: translateY(-100%) rotate(0deg); opacity: 0.8; }
+      100% { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+    }
+
+    .intro-content {
+      position: relative;
+      z-index: 2;
+      max-width: 90%;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 1.2s ease-out;
+    }
+
+    .intro-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .intro-title {
+      font-size: 2.8rem;
+      font-weight: bold;
+      color: #d32f2f;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 6px rgba(255,255,255,0.8);
+      letter-spacing: 2px;
+    }
+
+    .intro-text {
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .read-more-btn {
+      display: inline-block;
+      background: #d32f2f;
+      color: #fff;
+      padding: 14px 40px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(211,47,47,0.4);
+      transition: all 0.3s;
+    }
+
+    .read-more-btn:hover {
+      background: #b71c1c;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(211,47,47,0.6);
+    }
+
+    @media (max-width: 480px) {
+      .intro-title { font-size: 2.4rem; }
+      .intro-text { font-size: 1.3rem; }
+      .read-more-btn { padding: 12px 35px; font-size: 1.2rem; }
+      .petal { width: 25px; height: 25px; }
+    }
+
+    /* Gallery Stack với zoom full */
+    .gallery-section {
+      padding: 80px 15px 200px;
+      background: linear-gradient(to bottom, #fff1eb, #ffe4e1, #ffecb3, #ffd1a4);
+      text-align: center;
+      color: #333;
+      min-height: 180vh;
+      position: relative;
+    }
+
+    .gallery-title {
+      font-size: 2.6rem;
+      color: #d32f2f;
+      margin-bottom: 18px;
+      text-shadow: 2px 2px 6px rgba(255,255,255,0.8);
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    .gallery-subtitle {
+      font-size: 1.35rem;
+      margin-bottom: 50px;
+      color: #8b4513;
+      font-style: italic;
+    }
+
+    .stack-container {
+      position: relative;
+      height: 90vh;
+      max-width: 420px;
+      margin: 0 auto;
+      perspective: 1300px;
+    }
+
+    .stack-card {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 92%;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.3);
+      transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: 0;
+      transform: translateY(120px) scale(0.86) rotateX(18deg);
+      transform-origin: bottom center;
+      pointer-events: none;
+      border: 4px solid rgba(255,215,0,0.2);
+    }
+
+    .stack-card.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1) rotateX(0deg);
+      pointer-events: auto;
+    }
+
+    .stack-card:nth-child(1) { z-index: 10; }
+    .stack-card:nth-child(2) { z-index: 9; transform: translateY(60px) scale(0.94) rotateX(10deg); }
+    .stack-card:nth-child(3) { z-index: 8; transform: translateY(120px) scale(0.90) rotateX(6deg); }
+    .stack-card:nth-child(4) { z-index: 7; transform: translateY(180px) scale(0.86) rotateX(4deg); }
+
+    .stack-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
+
+    .stack-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .stack-card .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(211,47,47,0.9), rgba(211,47,47,0.6), transparent);
+      color: #fff;
+      padding: 50px 20px 20px;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+      letter-spacing: 1px;
+    }
+
+    .stack-card.pull-up {
+      transform: translateY(-200%) scale(0.7) rotateX(-30deg) !important;
+      opacity: 0 !important;
+    }
+
+    /* Lightbox Zoom */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      z-index: 9999;
+      backdrop-filter: blur(5px);
+    }
+
+    .lightbox:target {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox img {
+      max-width: 95%;
+      max-height: 90vh;
+      border-radius: 16px;
+      box-shadow: 0 0 50px rgba(255,215,0,0.4);
+      border: 4px solid #ffd700;
+      transform: scale(0.9);
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .lightbox:target img {
+      transform: scale(1);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      font-size: 4rem;
+      color: #ffd700;
+      text-decoration: none;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(0,0,0,0.8);
+      cursor: pointer;
+      z-index: 10000;
+    }
+
+    .lightbox-bg-close {
+      position: absolute;
+      inset: 0;
+      cursor: zoom-out;
+    }
+
+    @media (max-width: 480px) {
+      .gallery-title { font-size: 2.3rem; }
+      .gallery-subtitle { font-size: 1.2rem; }
+      .stack-container { max-width: 100%; }
+      .stack-card { width: 96%; border-radius: 20px; }
+      .close-btn { font-size: 3.2rem; top: 15px; right: 15px; }
+      .lightbox img { max-width: 98%; border-radius: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="content">
+      <h1 class="title">TRẠI XUÂN NGÔ QUYỀN</h1>
+      <p class="subtitle">11A8 - K60<br>THPT Lai Vung 1</p>
+    </div>
+  </section>
+
+  <!-- Ngô Quyền -->
+  <section class="ngo-quyen-section">
+    <div class="ngo-quyen-container">
+      <div class="ngo-quyen-img-wrapper">
+        <img src="https://thanhcoloa.vn/storage/tin-tuc/2024/trien-lam-ngo-quyen/dsc-1741.JPG" alt="Tượng Ngô Quyền" class="ngo-quyen-img">
+        <div class="caption">NGÔ QUYỀN - NGƯỜI MỞ ĐẦU THỜI KỲ ĐỘC LẬP</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Giới thiệu Trại Xuân + nút đọc bài viết -->
+  <section class="intro-section">
+    <div class="petals-container">
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    </div>
+    <div class="intro-content">
+      <h2 class="intro-title">TRẠI XUÂN NGÔ QUYỀN </h2>
+      <p class="intro-text">
+        Trại Xuân "Ngô Quyền" – nơi lớp 11A8 K60 THPT Lai Vung 1 hội tụ tinh thần đoàn kết, sáng tạo và khí thế tuổi trẻ. Lấy cảm hứng từ chiến thắng Bạch Đằng lịch sử và vẻ đẹp thanh khiết của hoa sen Đồng Tháp quê hương, trại xuân mang đến không gian ấm áp, rực rỡ sắc xuân, chào đón năm mới với niềm vui, tình bạn và những kỷ niệm khó quên!
+      </p>
+      <a href="https://drive.google.com/file/d/1HheVlnBFn_VyHO51qFm2HVCV7pELpyBv/view?usp=drive_link" class="read-more-btn">Đọc chi tiết bài viết →</a> <!-- Thay #! bằng link thật: ví dụ https://docs.google.com/... -->
+    </div>
+  </section>
+
+  <!-- Gallery Stack với zoom full -->
+  <section class="gallery-section">
+    <h2 class="gallery-title">HÌNH ẢNH TRẠI XUÂN NGÔ QUYỀN</h2>
+    <p class="gallery-subtitle">Kéo lên để khám phá khoảnh khắc xuân rực rỡ – Chạm ảnh để xem full!</p>
+
+    <div class="stack-container">
+      <div class="stack-card">
+        <a href="#img1">
+          <img src="z7238461581558_e4a1b8cf42c82c6c52c34ec84cabe4a3.jpg" alt="Ảnh 1" loading="lazy">
+          <div class="caption">Bắt đầu dựng khung cổng trại Ngô Quyền</div>
+        </a>
+      </div>
+      <div class="stack-card">
+        <a href="#img2">
+          <img src="z7238461911673_500c110b153f7ba0830197ec9853810d.jpg" alt="Ảnh 2" loading="lazy">
+          <div class="caption">Trang trí hoa sen và đèn lồng xuân</div>
+        </a>
+      </div>
+      <div class="stack-card">
+        <a href="#img3">
+          <img src="z7464438859999_e4c078b7329f9822f504036aa3b7e6ae.jpg" alt="Ảnh 3" loading="lazy">
+          <div class="caption">Team building và trò chơi tập thể</div>
+        </a>
+      </div>
+      <div class="stack-card">
+        <a href="#img4">
+          <img src="https://via.placeholder.com/400x600?text=Ảnh+4+-+Lưu+niệm" alt="Ảnh 4" loading="lazy">
+          <div class="caption">Chụp ảnh cả lớp trước cổng trại</div>
+        </a>
+      </div>
+      <!-- Thêm ảnh mới nếu có -->
+    </div>
+  </section>
+
+  <!-- Lightbox modal -->
+  <div id="img1" class="lightbox">
+    <a href="#" class="close-btn">&times;</a>
+    <a href="#" class="lightbox-bg-close"></a>
+    <img src="z7238461581558_e4a1b8cf42c82c6c52c34ec84cabe4a3.jpg" alt="Ảnh 1 full">
+  </div>
+  <div id="img2" class="lightbox">
+    <a href="#" class="close-btn">&times;</a>
+    <a href="#" class="lightbox-bg-close"></a>
+    <img src="z7238461911673_500c110b153f7ba0830197ec9853810d.jpg" alt="Ảnh 2 full">
+  </div>
+  <div id="img3" class="lightbox">
+    <a href="#" class="close-btn">&times;</a>
+    <a href="#" class="lightbox-bg-close"></a>
+    <img src="z7464438859999_e4c078b7329f9822f504036aa3b7e6ae.jpg" alt="Ảnh 3 full">
+  </div>
+  <div id="img4" class="lightbox">
+    <a href="#" class="close-btn">&times;</a>
+    <a href="#" class="lightbox-bg-close"></a>
+    <img src="https://via.placeholder.com/400x600?text=Ảnh+4" alt="Ảnh 4 full">
+  </div>
+
+  <script>
+    // Observer cho Ngô Quyền
+    const observerNgo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelector('.ngo-quyen-img-wrapper').classList.add('visible');
+          observerNgo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    observerNgo.observe(document.querySelector('.ngo-quyen-section'));
+
+    // Observer cho Intro
+    const observerIntro = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelector('.intro-content').classList.add('visible');
+          observerIntro.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    observerIntro.observe(document.querySelector('.intro-section'));
+
+    // Observer cho Gallery
+    const observerGallery = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const cards = document.querySelectorAll('.stack-card');
+          cards.forEach((card, index) => {
+            setTimeout(() => {
+              card.classList.add('visible');
+            }, index * 500);
+          });
+          observerGallery.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    observerGallery.observe(document.querySelector('.gallery-section'));
+
+    // Pull-up khi scroll sâu
+    window.addEventListener('scroll', () => {
+      const cards = document.querySelectorAll('.stack-card');
+      const scrollPos = window.scrollY + window.innerHeight;
+      const sectionTop = document.querySelector('.gallery-section').offsetTop;
+
+      cards.forEach((card, index) => {
+        if (scrollPos > sectionTop + index * 500 + 600) {
+          card.classList.add('pull-up');
+        } else {
+          card.classList.remove('pull-up');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
