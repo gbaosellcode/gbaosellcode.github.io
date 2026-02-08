@@ -1,26 +1,10 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trại Xuân Lớp Chúng Tôi – Xuân Rực Rỡ</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Roboto:wght@300;400;500&family=Pacifico&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trại Xuân Ngô Quyền - 11A8 K60 THPT Lai Vung 1</title>
   <style>
-    :root {
-      --red-deep: #b71c1c;
-      --red-warm: #ef5350;
-      --pink-soft: #ec407a;
-      --gold-bright: #ffd54f;
-      --gold-dark: #ffc107;
-      --green-spring: #43a047;
-      --cream: #fffde7;
-      --cream2: #fff8e1;
-      --blue-sky: #81d4fa;
-    }
-
     * {
       margin: 0;
       padding: 0;
@@ -28,431 +12,497 @@
     }
 
     body {
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(to bottom, var(--blue-sky) 0%, var(--cream) 30%, #ffebee 60%, #e8f5e9 100%);
-      color: #333;
-      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
+      color: #fff;
+      line-height: 1.6;
       overflow-x: hidden;
+    }
+
+    /* Hero */
+    .hero {
       position: relative;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: url('https://images.unsplash.com/photo-1581092160560-1c1e428e9d65?w=1600&q=30&blend=ffebee&bm=lighten&ba=bottom') center/cover no-repeat;
-      opacity: 0.12;
-      z-index: -2;
-      animation: bgZoom 30s infinite alternate ease-in-out;
-    }
-
-    @keyframes bgZoom {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.1); }
-    }
-
-    .blossom {
-      position: fixed;
-      font-size: 2rem;
-      opacity: 0;
-      pointer-events: none;
-      z-index: -1;
-      animation: blossomFall linear infinite, colorShift 5s infinite alternate;
-      color: var(--pink-soft);
-    }
-
-    @keyframes blossomFall {
-      0% { transform: translateY(-15vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.85; }
-      100% { transform: translateY(120vh) rotate(1080deg); opacity: 0; }
-    }
-
-    @keyframes colorShift {
-      0% { color: var(--pink-soft); }
-      50% { color: var(--gold-bright); }
-      100% { color: var(--red-warm); }
-    }
-
-    header {
-      height: 90vh;
+      height: 100vh;
       min-height: 600px;
-      background: linear-gradient(135deg, var(--red-warm) 0%, var(--pink-soft) 40%, var(--gold-dark) 100%);
-      color: white;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      position: relative;
       overflow: hidden;
-      padding: 0 24px;
-      animation: headerPulse 8s infinite alternate;
     }
 
-    @keyframes headerPulse {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-
-    header::before {
-      content: '';
+    .hero::before {
+      content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.3), transparent 70%);
-      animation: pulseBg 10s infinite alternate;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/27/Ng%C3%B4_Quy%E1%BB%81n_%C4%91%E1%BA%A1i_ph%C3%A1_qu%C3%A2n_Nam_H%C3%A1n_tr%C3%AAn_s%C3%B4ng_B%E1%BA%A1ch_%C4%90%E1%BA%B1ng.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.55) contrast(1.15) sepia(0.15);
+      z-index: 1;
     }
 
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.5rem, 10vw, 7rem);
-      font-weight: 900;
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      z-index: 2;
+    }
+
+    .hero .content {
+      position: relative;
+      z-index: 3;
+      padding: 20px;
+    }
+
+    .title {
+      font-size: 3.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
       letter-spacing: 4px;
-      text-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 50px var(--gold-bright);
-      margin-bottom: 0.4em;
-      animation: titleGlow 3.5s ease-in-out infinite alternate;
+      text-shadow: 3px 3px 10px rgba(0,0,0,0.9);
+      margin-bottom: 8px;
+      color: #ffd700;
     }
 
     .subtitle {
-      font-family: 'Pacifico', cursive;
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      opacity: 0.92;
-      text-shadow: 0 5px 18px rgba(0,0,0,0.6);
-      margin-bottom: 1.8em;
-      animation: subtitleBounce 2s ease-out;
+      font-size: 1.9rem;
+      font-weight: 600;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+      color: #ffffff;
+      letter-spacing: 2px;
     }
 
-    @keyframes subtitleBounce {
-      0% { transform: scale(0.6); opacity: 0; }
-      70% { transform: scale(1.15); opacity: 1; }
-      100% { transform: scale(1); }
+    @media (max-width: 480px) {
+      .title { font-size: 3rem; }
+      .subtitle { font-size: 1.6rem; }
     }
 
-    main {
-      max-width: 1000px;
-      margin: -120px auto 90px;
-      padding: 0 0;
+    /* Ngô Quyền section */
+    .ngo-quyen-section {
+      padding: 60px 15px 100px;
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      text-align: center;
+      min-height: 80vh;
     }
 
-    section {
-      background: rgba(255, 253, 231, 0.96);
-      backdrop-filter: blur(10px);
-      padding: 45px 20px;
-      margin-bottom: 70px;
-      box-shadow: 0 20px 70px rgba(183,28,28,0.22),
-                  inset 0 0 0 2px rgba(255,202,40,0.28);
-      border-top: 1.5px solid rgba(255,202,40,0.35);
-      border-bottom: 1.5px solid rgba(255,202,40,0.35);
+    .ngo-quyen-img-wrapper {
       opacity: 0;
-      transform: translateY(100px) scale(0.95);
-      transition: all 1.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transform: translateY(120px);
+      transition: all 1.5s cubic-bezier(0.22, 0.61, 0.36, 1);
     }
 
-    section.visible {
+    .ngo-quyen-img-wrapper.visible {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
     }
 
-    h2 {
-      font-family: 'Playfair Display', serif;
-      color: var(--red-deep);
-      font-size: clamp(2.4rem, 6vw, 3.8rem);
-      margin-bottom: 1.5em;
+    .ngo-quyen-img {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 0 8px rgba(255,215,0,0.15);
+      border: 4px solid #ffd700;
+    }
+
+    .caption {
+      margin-top: 25px;
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #ffd700;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+    }
+
+    /* Intro section - hoa sen rơi */
+    .intro-section {
       position: relative;
-      display: inline-block;
-      text-shadow: 0 4px 15px rgba(183,28,28,0.35);
-      animation: h2Shake 0.5s infinite alternate ease-in-out;
-    }
-
-    @keyframes h2Shake {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-2px); }
-    }
-
-    h2::after {
-      content: '🌸🏮🍊';
-      position: absolute;
-      right: -3.8em;
-      top: -0.4em;
-      font-size: 2.2rem;
-      opacity: 0.85;
-      animation: rotateSlow 18s linear infinite, colorShift 4s infinite alternate;
-    }
-
-    p {
-      font-size: 1.2rem;
-      line-height: 1.9;
-      color: #444;
-      margin-bottom: 1.2em;
-    }
-
-    .gallery-wrapper {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      margin: 2.2em 0 1.2em;
-      padding-bottom: 16px;
-    }
-
-    .gallery-wrapper::-webkit-scrollbar { display: none; }
-
-    .gallery-scroll {
-      display: flex;
-      gap: 20px;
-      padding: 0 20px;
-    }
-
-    .gallery-item {
-      flex: 0 0 85vw;
-      scroll-snap-align: start;
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(to bottom, #ffecd2, #fcb69f, #ff9a8b);
+      color: #333;
       overflow: hidden;
-      box-shadow: 0 14px 52px rgba(0,0,0,0.25);
-      border: 6px solid #fff;
-      background: #fff;
+    }
+
+    .intro-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('https://vietsensetravel.com/view/at_ruc-ro-mua-hoa-sen-no-ro-o-dong-thap-muoi--anh-1_b891afa8c72737d4b96cc5213f83f987.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      filter: blur(4px);
+      z-index: 0;
+    }
+
+    .petals-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800') center/cover;
+      background-size: contain;
+      opacity: 0.7;
+      animation: fall linear infinite;
+      will-change: transform, opacity;
+    }
+
+    .petal:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; }
+    .petal:nth-child(2) { left: 25%; animation-duration: 15s; animation-delay: 2s; width: 40px; height: 40px; }
+    .petal:nth-child(3) { left: 40%; animation-duration: 18s; animation-delay: 4s; }
+    .petal:nth-child(4) { left: 55%; animation-duration: 14s; animation-delay: 1s; width: 35px; height: 35px; }
+    .petal:nth-child(5) { left: 70%; animation-duration: 16s; animation-delay: 3s; }
+    .petal:nth-child(6) { left: 85%; animation-duration: 13s; animation-delay: 5s; width: 45px; height: 45px; }
+    .petal:nth-child(7) { left: 5%; animation-duration: 17s; animation-delay: 6s; }
+    .petal:nth-child(8) { left: 35%; animation-duration: 20s; animation-delay: 8s; width: 28px; height: 28px; }
+
+    @keyframes fall {
+      0% { transform: translateY(-100%) rotate(0deg); opacity: 0.8; }
+      100% { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+    }
+
+    .intro-content {
+      position: relative;
+      z-index: 2;
+      max-width: 90%;
+      margin: 0 auto;
       opacity: 0;
-      transform: translateX(50px) rotate(2deg);
-      transition: all 1s ease;
+      transform: translateY(60px);
+      transition: all 1.2s ease-out;
     }
 
-    section.visible .gallery-item {
+    .intro-content.visible {
       opacity: 1;
-      transform: translateX(0) rotate(0);
+      transform: translateY(0);
     }
 
-    .gallery-item img {
+    .intro-title {
+      font-size: 2.8rem;
+      font-weight: bold;
+      color: #d32f2f;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 6px rgba(255,255,255,0.8);
+      letter-spacing: 2px;
+    }
+
+    .intro-text {
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .read-more-btn {
+      display: inline-block;
+      background: #d32f2f;
+      color: #fff;
+      padding: 14px 40px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(211,47,47,0.4);
+      transition: all 0.3s;
+    }
+
+    .read-more-btn:hover {
+      background: #b71c1c;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(211,47,47,0.6);
+    }
+
+    /* Gallery section - ĐÃ SỬA */
+    .gallery-section {
+      padding: 80px 15px 120px;
+      background: linear-gradient(to bottom, #fff1eb, #ffe4e1, #ffecb3, #ffd1a4);
+      text-align: center;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    .gallery-title {
+      font-size: 2.6rem;
+      color: #d32f2f;
+      margin-bottom: 18px;
+      text-shadow: 2px 2px 6px rgba(255,255,255,0.8);
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    .gallery-subtitle {
+      font-size: 1.35rem;
+      margin-bottom: 60px;
+      color: #8b4513;
+      font-style: italic;
+    }
+
+    .stack-container {
+      position: relative;
+      min-height: 80vh;
+      max-width: 460px;
+      margin: 0 auto 80px;
+      perspective: 1400px;
+    }
+
+    .stack-card {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 94%;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.28);
+      transition: all 1.4s cubic-bezier(0.34, 1.4, 0.64, 1);
+      opacity: 0;
+      transform: translateY(160px) scale(0.82) rotateX(24deg);
+      transform-origin: bottom center;
+      pointer-events: none;
+      border: 4px solid rgba(255,215,0,0.22);
+    }
+
+    .stack-card.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Vị trí cố định sau khi visible */
+    .stack-card:nth-child(1) { transform: translateY(0)   scale(1.00) rotateX(0deg);   z-index: 10; }
+    .stack-card:nth-child(2) { transform: translateY(50px) scale(0.96) rotateX(10deg); z-index: 9;  }
+    .stack-card:nth-child(3) { transform: translateY(100px) scale(0.92) rotateX(6deg); z-index: 8;  }
+    .stack-card:nth-child(4) { transform: translateY(150px) scale(0.88) rotateX(3deg); z-index: 7;  }
+
+    .stack-card img {
       width: 100%;
       height: auto;
       display: block;
-      transition: transform 0.5s ease, filter 0.5s ease;
+      cursor: zoom-in;
+      transition: transform 0.4s ease;
     }
 
-    .gallery-item:hover img {
+    .stack-card:hover img {
       transform: scale(1.06);
-      filter: brightness(1.1);
     }
 
-    .gallery-hint {
+    .stack-card .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(211,47,47,0.92), rgba(211,47,47,0.68), transparent);
+      color: #fff;
+      padding: 60px 20px 24px;
       text-align: center;
-      font-style: italic;
-      color: #666;
-      margin: 1.2em 20px 0;
-      font-size: 1rem;
-      animation: hintFade 2s infinite alternate;
+      font-size: 1.28rem;
+      font-weight: bold;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.75);
+      letter-spacing: 1px;
     }
 
-    @keyframes hintFade {
-      0% { opacity: 0.7; }
-      100% { opacity: 1; }
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      z-index: 9999;
+      backdrop-filter: blur(5px);
     }
 
-    #video iframe {
-      width: 100%;
-      height: 280px;
-      box-shadow: 0 14px 52px rgba(0,0,0,0.25);
-      border: 6px solid #fff;
-      transition: transform 0.5s ease;
+    .lightbox:target {
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    #video iframe:hover {
-      transform: scale(1.02);
+    .lightbox img {
+      max-width: 95%;
+      max-height: 90vh;
+      border-radius: 16px;
+      box-shadow: 0 0 50px rgba(255,215,0,0.4);
+      border: 4px solid #ffd700;
+      transform: scale(0.92);
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    #model3d-container {
-      width: 100%;
-      height: 350px;
-      overflow: hidden;
-      box-shadow: 0 14px 52px rgba(0,0,0,0.25);
-      border: 6px solid #fff;
+    .lightbox:target img {
+      transform: scale(1);
     }
 
-    footer {
-      background: linear-gradient(90deg, var(--red-warm), var(--pink-soft), var(--gold-dark));
-      color: white;
-      text-align: center;
-      padding: 4em 1.2em 4.5em;
-      font-size: 1.4rem;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      clip-path: ellipse(160% 100% at 50% 0%);
-      animation: footerGlow 5s infinite alternate;
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 4.5rem;
+      color: #ffd700;
+      text-decoration: none;
+      font-weight: bold;
+      text-shadow: 0 0 12px rgba(0,0,0,0.9);
+      cursor: pointer;
+      z-index: 10000;
     }
 
-    @keyframes footerGlow {
-      0% { filter: brightness(1); }
-      100% { filter: brightness(1.15); }
+    .lightbox-bg-close {
+      position: absolute;
+      inset: 0;
+      cursor: zoom-out;
     }
 
-    @media (min-width: 768px) {
-      #video iframe { height: 400px; }
-      #model3d-container { height: 450px; }
-      .gallery-item { flex: 0 0 60vw; }
-      main { padding: 0 20px; }
-    }
-
-    @media (min-width: 1024px) {
-      .gallery-item { flex: 0 0 45vw; }
+    @media (max-width: 480px) {
+      .gallery-title { font-size: 2.3rem; }
+      .gallery-subtitle { font-size: 1.2rem; margin-bottom: 40px; }
+      .stack-container { max-width: 100%; min-height: 70vh; }
+      .stack-card { width: 96%; border-radius: 20px; }
+      .stack-card:nth-child(2) { transform: translateY(40px) scale(0.96) rotateX(10deg); }
+      .stack-card:nth-child(3) { transform: translateY(80px) scale(0.92) rotateX(6deg); }
+      .stack-card:nth-child(4) { transform: translateY(120px) scale(0.88) rotateX(3deg); }
+      .close-btn { font-size: 3.5rem; top: 15px; right: 20px; }
+      .lightbox img { max-width: 98%; border-radius: 12px; }
     }
   </style>
 </head>
 <body>
 
-  <script>
-    function createBlossoms() {
-      const symbols = ['🌸', '🌺', '🍊', '🏮', '🎊', '🌼', '🍀', '🌷', '🍁'];
-      for (let i = 0; i < 50; i++) {
-        const el = document.createElement('div');
-        el.className = 'blossom';
-        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-        el.style.left = Math.random() * 100 + 'vw';
-        el.style.animationDuration = (Math.random() * 16 + 10) + 's';
-        el.style.animationDelay = Math.random() * 6 + 's';
-        el.style.fontSize = (Math.random() * 1.5 + 1.8) + 'rem';
-        document.body.appendChild(el);
-      }
-    }
-    createBlossoms();
-  </script>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="content">
+      <h1 class="title">TRẠI XUÂN NGÔ QUYỀN</h1>
+      <p class="subtitle">11A8 - K60<br>THPT Lai Vung 1</p>
+    </div>
+  </section>
 
-  <header>
-    <h1>TRẠI XUÂN</h1>
-    <div class="subtitle">Lớp Chúng Tôi – Tết Đến Xuân Về</div>
-  </header>
-
-  <main>
-    <section id="intro">
-      <h2>Giới Thiệu Trại Xuân</h2>
-      <p>Chào mừng các bạn đến với trang kỷ niệm Trại Xuân của lớp chúng ta! Đây là nơi chúng ta cùng nhau khám phá thiên nhiên xanh tươi, tham gia hoạt động đội nhóm vui nhộn, và tạo nên những kỷ niệm đẹp đẽ dưới sắc xuân rực rỡ. Với hoa mai vàng óng, đèn lồng đỏ thắm, và không khí ấm áp sum vầy, trại xuân năm nay thực sự là một bức tranh sống động của mùa Tết.</p>
-      <p>Bạn có thể vuốt ngang để xem ảnh, xem video clip, và khám phá mô hình 3D của trại. Hãy cùng ôn lại những khoảnh khắc tuyệt vời nhé!</p>
-    </section>
-
-    <section id="gallery">
-      <h2>Album Ảnh Trại Xuân </h2>
-      <div class="gallery-wrapper">
-        <div class="gallery-scroll">
-          <div class="gallery-item"><img src="z7238461581558_e4a1b8cf42c82c6c52c34ec84cabe4a3.jpg" alt="Ảnh 1"></div>
-          <div class="gallery-item"><img src="z7238461911673_500c110b153f7ba0830197ec9853810d.jpg" alt="Ảnh 2"></div>
-          <div class="gallery-item"><img src="z7464438859999_e4c078b7329f9822f504036aa3b7e6ae.jpg" alt="Ảnh 3"></div>
-          <div class="gallery-item"><img src="z7464438868186_ba4d1c44c1c86f9590a7ffa3192f1a0c.jpg" alt="Ảnh 4"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?campfire,tet" alt="Ảnh 5"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?group,fun" alt="Ảnh 6"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?hike,spring" alt="Ảnh 7"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?laugh,tet" alt="Ảnh 8"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?sunset,camp" alt="Ảnh 9"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?play,spring" alt="Ảnh 10"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?happy,tet" alt="Ảnh 11"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?memory,camp" alt="Ảnh 12"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?team,spring" alt="Ảnh 13"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?forest,tet" alt="Ảnh 14"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?adventure,camp" alt="Ảnh 15"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?stars,spring" alt="Ảnh 16"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?joy,tet" alt="Ảnh 17"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?bond,camp" alt="Ảnh 18"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?explore,spring" alt="Ảnh 19"></div>
-          <div class="gallery-item"><img src="https://source.unsplash.com/random/800x1200/?celebrate,tet" alt="Ảnh 20"></div>
-        </div>
+  <!-- Ngô Quyền -->
+  <section class="ngo-quyen-section">
+    <div class="ngo-quyen-container">
+      <div class="ngo-quyen-img-wrapper">
+        <img src="https://thanhcoloa.vn/storage/tin-tuc/2024/trien-lam-ngo-quyen/dsc-1741.JPG" alt="Tượng Ngô Quyền" class="ngo-quyen-img">
+        <div class="caption">NGÔ QUYỀN - NGƯỜI MỞ ĐẦU THỜI KỲ ĐỘC LẬP</div>
       </div>
-      <div class="gallery-hint">Vuốt ngang để xem</div>
-    </section>
+    </div>
+  </section>
 
-    <section id="video">
-      <h2>Video Clip Trại Xuân</h2>
-      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video Trại Xuân" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <p style="text-align: center; font-style: italic; margin-top: 1.5em;">Xem lại những phút giây vui vẻ bên nhau!</p>
-    </section>
+  <!-- Giới thiệu Trại Xuân -->
+  <section class="intro-section">
+    <div class="petals-container">
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    </div>
+    <div class="intro-content">
+      <h2 class="intro-title">TRẠI XUÂN NGÔ QUYỀN</h2>
+      <p class="intro-text">
+        Trại Xuân "Ngô Quyền" – nơi lớp 11A8 K60 THPT Lai Vung 1 hội tụ tinh thần đoàn kết, sáng tạo và khí thế tuổi trẻ. Lấy cảm hứng từ chiến thắng Bạch Đằng lịch sử và vẻ đẹp thanh khiết của hoa sen Đồng Tháp quê hương, trại xuân mang đến không gian ấm áp, rực rỡ sắc xuân, chào đón năm mới với niềm vui, tình bạn và những kỷ niệm khó quên!
+      </p>
+      <a href="https://drive.google.com/file/d/1HheVlnBFn_VyHO51qFm2HVCV7pELpyBv/view?usp=drive_link" class="read-more-btn" target="_blank">Đọc chi tiết bài viết →</a>
+    </div>
+  </section>
 
-    <section id="model3d">
-      <h2>Mô Hình 3D Trại Xuân</h2>
-      <div id="model3d-container"></div>
-      <p style="text-align: center; font-style: italic; margin-top: 1.5em;">Xoay và khám phá mô hình trại với sắc xuân rực rỡ!</p>
-    </section>
-  </main>
+  <!-- Gallery -->
+  <section class="gallery-section">
+    <h2 class="gallery-title">HÌNH ẢNH TRẠI XUÂN NGÔ QUYỀN</h2>
+    <p class="gallery-subtitle">Chạm ảnh để xem lớn – kéo chậm để ngắm từng khoảnh khắc đẹp!</p>
 
-  <footer>
-    Chúc cả lớp một mùa Xuân thật An Khang – Thịnh Vượng!<br>
-    🌸🏮🍊🎊 – Tết Đến Xuân Về!
-  </footer>
+    <div class="stack-container">
+      <div class="stack-card">
+        <a href="#img1">
+          <img src="z7238461581558_e4a1b8cf42c82c6c52c34ec84cabe4a3.jpg" alt="Ảnh 1" loading="lazy">
+          <div class="caption">Bắt đầu dựng khung cổng trại Ngô Quyền</div>
+        </a>
+      </div>
+      <div class="stack-card">
+        <a href="#img2">
+          <img src="z7238461911673_500c110b153f7ba0830197ec9853810d.jpg" alt="Ảnh 2" loading="lazy">
+          <div class="caption">Trang trí không gian trại xuân</div>
+        </a>
+      </div>
+      <div class="stack-card">
+        <a href="#img3">
+          <img src="z7464438859999_e4c078b7329f9822f504036aa3b7e6ae.jpg" alt="Ảnh 3" loading="lazy">
+          <div class="caption">Team building và trò chơi tập thể</div>
+        </a>
+      </div>
+      <div class="stack-card">
+        <a href="#img4">
+          <img src="https://via.placeholder.com/400x600?text=Ảnh+4+-+Lưu+niệm" alt="Ảnh 4" loading="lazy">
+          <div class="caption">Chụp ảnh kỷ niệm cả lớp trước cổng trại</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="img1" class="lightbox">
+    <a href="#" class="close-btn">×</a>
+    <a href="#" class="lightbox-bg-close"></a>
+    <img src="z7238461581558_e4a1b8cf42c82c6c52c34ec84cabe4a3.jpg" alt="Ảnh 1 full">
+  </div>
+  <div id="img2" class="lightbox">
+    <a href="#" class="close-btn">×</a>
+    <a href="#" class="lightbox-bg-close"></a>
+    <img src="z7238461911673_500c110b153f7ba0830197ec9853810d.jpg" alt="Ảnh 2 full">
+  </div>
+  <div id="img3" class="lightbox">
+    <a href="#" class="close-btn">×</a>
+    <a href="#" class="lightbox-bg-close"></a>
+    <img src="z7464438859999_e4c078b7329f9822f504036aa3b7e6ae.jpg" alt="Ảnh 3 full">
+  </div>
+  <div id="img4" class="lightbox">
+    <a href="#" class="close-btn">×</a>
+    <a href="#" class="lightbox-bg-close"></a>
+    <img src="https://via.placeholder.com/400x600?text=Ảnh+4" alt="Ảnh 4 full">
+  </div>
 
   <script>
-    // Scroll reveal
-    const sections = document.querySelectorAll('section');
-    const onScroll = () => {
-      const trigger = window.innerHeight * 0.85;
-      sections.forEach(sec => {
-        if (sec.getBoundingClientRect().top < trigger) sec.classList.add('visible');
+    // Observer Ngô Quyền
+    const observerNgo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelector('.ngo-quyen-img-wrapper').classList.add('visible');
+          observerNgo.unobserve(entry.target);
+        }
       });
-    };
-    window.addEventListener('scroll', onScroll);
-    onScroll();
+    }, { threshold: 0.2 });
+    observerNgo.observe(document.querySelector('.ngo-quyen-section'));
 
-    // Three.js mô hình 3D
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xe8f5e9);
-    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / 350, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, 350);
-    document.getElementById('model3d-container').appendChild(renderer.domElement);
+    // Observer Intro
+    const observerIntro = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelector('.intro-content').classList.add('visible');
+          observerIntro.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+    observerIntro.observe(document.querySelector('.intro-section'));
 
-    const baseGeo = new THREE.BoxGeometry(2.5, 0.6, 2.5);
-    const baseMat = new THREE.MeshPhongMaterial({ color: 0xef5350 });
-    const base = new THREE.Mesh(baseGeo, baseMat);
-    scene.add(base);
+    // Observer Gallery - chỉ hiện lần lượt, không pull-up
+    const observerGallery = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const cards = document.querySelectorAll('.stack-card');
+          cards.forEach((card, index) => {
+            setTimeout(() => {
+              card.classList.add('visible');
+            }, 400 + index * 700); // timing chậm hơn → dễ nhìn
+          });
+          observerGallery.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    observerGallery.observe(document.querySelector('.gallery-section'));
 
-    const roofGeo = new THREE.ConeGeometry(1.8, 2.5, 4);
-    const roofMat = new THREE.MeshPhongMaterial({ color: 0xec407a });
-    const roof = new THREE.Mesh(roofGeo, roofMat);
-    roof.position.y = 1.55;
-    scene.add(roof);
-
-    const trunkGeo = new THREE.CylinderGeometry(0.2, 0.2, 1.8, 8);
-    const trunkMat = new THREE.MeshPhongMaterial({ color: 0x8d6e63 });
-    const trunk = new THREE.Mesh(trunkGeo, trunkMat);
-    trunk.position.set(2.8, 0.9, 0.8);
-    scene.add(trunk);
-
-    const flowerGeo = new THREE.SphereGeometry(0.5, 16, 16);
-    const flowerMat = new THREE.MeshPhongMaterial({ color: 0xffd54f, emissive: 0xffc107, emissiveIntensity: 0.4 });
-    const flower1 = new THREE.Mesh(flowerGeo, flowerMat);
-    flower1.position.set(2.8, 2, 0.8);
-    scene.add(flower1);
-
-    const flower2 = flower1.clone();
-    flower2.scale.set(0.75, 0.75, 0.75);
-    flower2.position.set(3, 2.2, 1);
-    scene.add(flower2);
-
-    const lanternGeo = new THREE.SphereGeometry(0.6, 16, 16);
-    const lanternMat = new THREE.MeshPhongMaterial({ color: 0xb71c1c, emissive: 0xef5350, emissiveIntensity: 0.6 });
-    const lantern = new THREE.Mesh(lanternGeo, lanternMat);
-    lantern.position.set(-2.5, 2.5, -0.5);
-    scene.add(lantern);
-
-    const ambient = new THREE.AmbientLight(0xffffff, 0.8);
-    scene.add(ambient);
-
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    dirLight.position.set(6, 10, 6);
-    scene.add(dirLight);
-
-    const pointLight = new THREE.PointLight(0xffd54f, 1.8, 50);
-    pointLight.position.set(-2.5, 3, -0.5);
-    scene.add(pointLight);
-
-    camera.position.set(0, 4, 8);
-    camera.lookAt(0, 1.5, 0);
-
-    function animate() {
-      requestAnimationFrame(animate);
-      scene.rotation.y += 0.004;
-      lantern.scale.set(1 + Math.sin(Date.now() * 0.003) * 0.08, 1 + Math.sin(Date.now() * 0.003) * 0.08, 1 + Math.sin(Date.now() * 0.003) * 0.08);
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / 350;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, 350);
-    });
+    // KHÔNG CÒN window.addEventListener('scroll') gây rối nữa
   </script>
-
 </body>
 </html>
